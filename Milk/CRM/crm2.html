@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h2 {
+      margin: 0;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .stat {
+      background: #f9fafb;
+      flex: 1;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      margin: 0;
+    }
+
+    .ticket {
+      display: flex;
+      align-items: flex-start;
+      border-top: 3px solid #e53e3e;
+      padding: 20px 0;
+      border-radius: 5px;
+    }
+
+    .ticket img {
+      width: 60px;
+height:60px;
+      border-radius: 50%;
+object-fit:cover;
+      margin-right: 20px;
+    }
+
+    .ticket-content {
+      flex: 1;
+    }
+
+    .ticket-content h4 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tags span {
+      background: #f87171;
+      padding: 4px 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .ticket-content p {
+      margin: 5px 0;
+    }
+
+    .ticket-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ticket-actions button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .view { background: #06b6d4; }
+    .reply { background: #22c55e; }
+    .email { background: #facc15; color: #000; }
+    .delete { background: #ef4444; }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+    }
+
+    .modal textarea, .modal input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+    }
+
+    .modal button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <h2>Customer Relationship Management</h2>
+      
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <h3>142</h3>
+        <p>Total Requests</p>
+        <small style="color: blue;">12% from last month</small>
+      </div>
+      <div class="stat">
+        <h3>28</h3>
+        <p>Pending Requests</p>
+        <small style="color: red;">5% from last week</small>
+      </div>
+      <div class="stat">
+        <h3>2.4</h3>
+        <p>Avg. Resolution Time</p>
+        <small style="color: blue;">Improving</small>
+      </div>
+      <div class="stat">
+        <h3>94%</h3>
+        <p>Customer Satisfaction</p>
+        <small style="color: blue;">3% from last quarter</small>
+      </div>
+    </div>
+
+    <div class="ticket">
+      <img src="c1img.jpg" alt="Profile" />
+      <div class="ticket-content">
+        <h4>
+          ALEX HARRIS
+          <span class="tags">     <span>URGENT</span>     <span>HIGH</span></span>
+        </h4>
+        <p>Feed supply delayed - cattle at risk. Need immediate resolution!</p>
+        <p>Phone: +11 98765 43210 | Email: harris@dairyfarm.com</p>
+        <p>Location: Indianapolis, USA | Cattle: 120</p>
+        <p><small>Created: Apr 10, 2025 | Updated: 2 hours ago</small></p>
+      </div>
+      <div class="ticket-actions">
+        <button class="view" onclick="showModal('viewModal')">View</button>
+        <button class="reply" onclick="showModal('replyModal')">Reply</button>
+        <button class="email" onclick="showModal('emailModal')">Email</button>
+        <button class="delete" onclick="confirm('Are you sure you want to delete this ticket?')">Delete</button>
+      </div>
+    </div>
+  
+
+<!-- JOHN CENA Ticket -->
+<div class="ticket" style="border-top: 3px solid orange;">
+  <img src="c2img.jpg" alt="Profile" />
+  <div class="ticket-content">
+    <h4>JOHN MERENA
+<div class="tags">
+      <span style="background:#fde68a; color:#92400e;">FOLLOW-UP</span>
+      <span style="background:#fde68a; color:#92400e;">MEDIUM</span>
+    </div>
+   </h4>
+
+
+    <p>Awaiting veterinary report for livestock health check</p>
+    <p>Phone: +31 76543 21098 | Email: john.c@organicdairy.co</p>
+    <p>Location: Dallas, USA | Cattle: 150</p>
+    <p><small>Created: Apr 8, 2025 | Last follow-up: Yesterday</small></p>
+  </div>
+  <div class="ticket-actions">
+    <button class="view" onclick="showModal('viewModal2')">View</button>
+    <button class="reply" onclick="showModal('replyModal2')">Reply</button>
+    <button class="email" onclick="showModal('emailModal2')">Email</button>
+    <button class="delete" onclick="confirm('Are you sure you want to delete this ticket?')">Delete</button>
+  </div>
+</div>
+
+<!-- DAKOTA Ticket -->
+<div class="ticket" style="border-top: 3px solid #3b82f6;">
+  <img src="c3img.jpg" alt="Profile" />
+  <div class="ticket-content">
+    <h4>DAKOTA
+    <div class="tags">
+      <span style="background:#bbf7d0; color:#166534;">RESOLVED</span>
+      <span style="background:#bbf7d0; color:#166534;">LOW</span>
+    </div>
+</h4>
+
+
+    <p>CRM training scheduled for staff on April 15th</p>
+    <p>Phone: +81 65432 10987 | Email: dakota.e@desaidairy.com</p>
+    <p>Location: Houston, USA | Staff Members: 12</p>
+    <p><small>Created: Apr 6, 2025 | Resolved: Apr 7, 2025</small></p>
+  </div>
+  <div class="ticket-actions">
+    <button class="view" onclick="showModal('viewModal3')">View</button>
+    <button class="reply" onclick="showModal('replyModal3')">Reply</button>
+    <button class="email" onclick="showModal('emailModal3')">Email</button>
+    <button class="delete" onclick="confirm('Are you sure you want to delete this ticket?')">Delete</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  <!-- View Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-content">
+      <h4>Ticket Details</h4>
+      <p><strong>Name:</strong> ALEX HARRIS</p>
+      <p><strong>Reason:</strong> Feed supply delayed - cattle at risk</p>
+      <p><strong>Phone:</strong> +11 98765 43210</p>
+      <p><strong>Email:</strong> harris@dairyfarm.com</p>
+      <p><strong>Location:</strong> Indianapolis, USA</p>
+      <p><strong>Cattle:</strong> 120</p>
+      <button onclick="closeModal('viewModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Reply Modal -->
+  <div class="modal" id="replyModal">
+    <div class="modal-content">
+      <h4>Reply</h4>
+      <textarea rows="5" placeholder="Type your reply here..."></textarea>
+      <button>Send</button>
+      <button onclick="closeModal('replyModal')">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Email Modal -->
+  <div class="modal" id="emailModal">
+    <div class="modal-content">
+      <h4>Send Email</h4>
+      <input type="text" placeholder="From: support@crm.com" />
+      <input type="text" placeholder="To: harris@dairyfarm.com" />
+      <input type="text" placeholder="Subject: Regarding Feed Supply Issue" />
+      <textarea rows="4" placeholder="Message..."></textarea>
+      <button>Send Email</button>
+      <button onclick="closeModal('emailModal')">Cancel</button>
+    </div>
+  </div>
+
+
+
+<div class="modal" id="viewModal2">
+  <div class="modal-content">
+    <h4>Ticket Details - John Merena</h4>
+    <p><strong>Name:</strong> JOHN MERENA</p>
+    <p><strong>Reason:</strong> Awaiting veterinary report for livestock health check</p>
+    <p><strong>Phone:</strong> +31 76543 21098</p>
+    <p><strong>Email:</strong> john.c@organicdairy.co</p>
+    <p><strong>Location:</strong> Dallas, USA</p>
+    <p><strong>Cattle:</strong> 150</p>
+    <button onclick="closeModal('viewModal2')">Close</button>
+  </div>
+</div>
+
+<div class="modal" id="replyModal2">
+  <div class="modal-content">
+    <h4>Reply - John Cena</h4>
+    <textarea rows="4" placeholder="Type your reply..."></textarea>
+    <button>Send</button>
+    <button onclick="closeModal('replyModal2')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="emailModal2">
+  <div class="modal-content">
+    <h4>Email - John Cena</h4>
+    <input type="text" value="support@crm.com" />
+    <input type="text" value="john.c@organicdairy.co" />
+    <input type="text" placeholder="Subject" />
+    <textarea rows="4" placeholder="Type your message..."></textarea>
+    <button>Send Email</button>
+    <button onclick="closeModal('emailModal2')">Cancel</button>
+  </div>
+</div>
+
+<!-- Modals for DAKOTA -->
+<div class="modal" id="viewModal3">
+  <div class="modal-content">
+    <h4>Ticket Details - Dakota</h4>
+    <p><strong>Name:</strong> DAKOTA</p>
+    <p><strong>Reason:</strong> CRM training scheduled for staff on April 15th</p>
+    <p><strong>Phone:</strong> +81 65432 10987</p>
+    <p><strong>Email:</strong> dakota.e@desaidairy.com</p>
+    <p><strong>Location:</strong> Houston, USA</p>
+    <p><strong>Staff Members:</strong> 12</p>
+    <button onclick="closeModal('viewModal3')">Close</button>
+  </div>
+</div>
+
+<div class="modal" id="replyModal3">
+  <div class="modal-content">
+    <h4>Reply - Dakota</h4>
+    <textarea rows="4" placeholder="Type your reply..."></textarea>
+    <button>Send</button>
+    <button onclick="closeModal('replyModal3')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" id="emailModal3">
+  <div class="modal-content">
+    <h4>Email - Dakota</h4>
+    <input type="text" value="support@crm.com" />
+    <input type="text" value="dakota.e@desaidairy.com" />
+    <input type="text" placeholder="Subject" />
+    <textarea rows="4" placeholder="Type your message..."></textarea>
+    <button>Send Email</button>
+    <button onclick="closeModal('emailModal3')">Cancel</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+  <script>
+    function showModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+</body>
+</html>

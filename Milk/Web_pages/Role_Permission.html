@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Role-Based Permissions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e6f0fa;
+      margin: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 1000px;
+      margin: auto;
+    }
+
+    .tabs {
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 15px;
+      background: white;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+      border-bottom: 3px solid #007bff;
+    }
+
+    .section-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      gap: 20px;
+    }
+
+    .section {
+      flex: 1;
+      background-color: #d0eaff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .section h3 {
+      margin-top: 0;
+    }
+
+    .permission {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .toggle {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background: #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle:before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s;
+    }
+
+    .toggle.active {
+      background: #007bff;
+    }
+
+    .toggle.active:before {
+      transform: translateX(20px);
+    }
+
+    .save-btn {
+      background-color: #004ea1;
+      color: white;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+      margin-top: 2px;
+    }
+
+    small {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="tabs">
+    <div class="tab">Role Permissions</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section">
+      <h3>Admin</h3>
+      <div class="permission">
+        <span>Full system access</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+      <small>Can manage all users, roles, and settings</small>
+    </div>
+
+    <div class="section">
+      <h3>Sales</h3>
+      <div class="permission">
+        <span>View customer data</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="permission">
+        <span>Edit orders</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="permission">
+        <span>Generate reports</span>
+        <div class="toggle" onclick="toggleSwitch(this)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-row">
+    <div class="section">
+      <h3>Delivery</h3>
+      <div class="permission">
+        <span>View delivery routes</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="permission">
+        <span>Update delivery status</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Customer Support</h3>
+      <div class="permission">
+        <span>Manage tickets</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="permission">
+        <span>Process refunds</span>
+        <div class="toggle" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="permission">
+        <span>Live chat access</span>
+        <div class="toggle active" onclick="toggleSwitch(this)"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="save-btn">Save Permissions</button>
+</div>
+
+<script>
+  function toggleSwitch(el) {
+    el.classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>

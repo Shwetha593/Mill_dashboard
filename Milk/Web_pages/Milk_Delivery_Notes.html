@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/LENOVO%20L480/Desktop/notes.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Milk Delivery Notes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 700px;
+      background: white;
+      padding: 20px 25px;
+      border-radius: 10px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    textarea, select, button {
+      width: 100%;
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: auto;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .note {
+      border-top: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .note-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .note-date {
+      float: right;
+      font-size: 14px;
+      color: gray;
+    }
+
+    .note-content {
+      margin: 10px 0;
+    }
+
+    .note-actions button {
+      background-color: #007bff;
+      margin-right: 10px;
+    }
+
+    .note-actions button:last-child {
+      background-color: #dc3545;
+    }
+
+    .note-actions button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add New Note</h2>
+    <select id="noteType">
+      <option value="Preference Note">Preference Note</option>
+      <option value="Feedback">Feedback</option>
+      <option value="Special Request">Special Request</option>
+    </select>
+
+    <textarea id="noteInput" placeholder="Enter your note here..." style="width: 692px; height: 38px;"></textarea>
+    <button onclick="saveNote()">Save Note</button>
+
+    <div id="notesList"><div class="note">
+          <div>
+            <span class="note-title">Preference Note</span>
+            <span class="note-date">May 13, 2025</span>
+          </div>
+          <div class="note-content">Customers prefers early morning deliveries before 7Am</div>
+          <div class="note-actions">
+            <button onclick="editNote(0)">Edit</button>
+            <button onclick="deleteNote(0)">Delete</button>
+          </div>
+        </div><div class="note">
+          <div>
+            <span class="note-title">Special Request</span>
+            <span class="note-date">May 13, 2025</span>
+          </div>
+          <div class="note-content">Will be on vacation from june 1-10 pause deliveries during this period.</div>
+          <div class="note-actions">
+            <button onclick="editNote(1)">Edit</button>
+            <button onclick="deleteNote(1)">Delete</button>
+          </div>
+        </div><div class="note">
+          <div>
+            <span class="note-title">Feedback</span>
+            <span class="note-date">May 13, 2025</span>
+          </div>
+          <div class="note-content">Reported issue with milk consistency last week cheque quality this delivery.</div>
+          <div class="note-actions">
+            <button onclick="editNote(2)">Edit</button>
+            <button onclick="deleteNote(2)">Delete</button>
+          </div>
+        </div></div>
+  </div>
+
+  <script>
+    let notes = [];
+
+    function formatDate(date) {
+      return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function saveNote() {
+      const input = document.getElementById("noteInput");
+      const type = document.getElementById("noteType").value;
+      const text = input.value.trim();
+
+      if (text === "") return;
+
+      if (input.dataset.editing) {
+        const index = parseInt(input.dataset.editing);
+        notes[index].text = text;
+        notes[index].type = type;
+        input.removeAttribute("data-editing");
+      } else {
+        notes.push({ type: type, text: text, date: new Date() });
+      }
+
+      input.value = "";
+      displayNotes();
+    }
+
+    function displayNotes() {
+      const container = document.getElementById("notesList");
+      container.innerHTML = "";
+
+      notes.forEach((note, index) => {
+        const noteDiv = document.createElement("div");
+        noteDiv.className = "note";
+
+        noteDiv.innerHTML = `
+          <div>
+            <span class="note-title">${note.type}</span>
+            <span class="note-date">${formatDate(note.date)}</span>
+          </div>
+          <div class="note-content">${note.text}</div>
+          <div class="note-actions">
+            <button onclick="editNote(${index})">Edit</button>
+            <button onclick="deleteNote(${index})">Delete</button>
+          </div>
+        `;
+
+        container.appendChild(noteDiv);
+      });
+    }
+
+    function editNote(index) {
+      const input = document.getElementById("noteInput");
+      const typeSelect = document.getElementById("noteType");
+      input.value = notes[index].text;
+      typeSelect.value = notes[index].type;
+      input.dataset.editing = index;
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      displayNotes();
+    }
+  </script>
+
+</body></html>

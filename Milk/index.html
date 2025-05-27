@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel@1.1.1"></script>
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 20px;
+      height: 56px;
+    }
+
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .left-header img {
+      height: 48px;
+    }
+
+    .left-header h2 {
+      margin: 0;
+      font-size: 18px;
+      margin-left: 10px;
+    }
+
+    .center-header {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .center-header input {
+      width: 40%;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+
+
+    .right-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .top-bar {
+      padding: 6px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background-color: white;
+      border-top: 1px solid #eee;
+      position: relative;
+      top: 56px;
+      margin-top: 20px;
+      /* Added margin to push the buttons down */
+    }
+
+
+    .top-bar button {
+      padding: 6px 12px;
+      border: none;
+      background: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .top-bar button.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .toggle-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: white;
+      /* changed from blue */
+      height: calc(100vh - 56px);
+      color: black;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 15px;
+      flex-shrink: 0;
+
+
+      transition: transform 0.3s ease;
+      z-index: 2;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .sidebar a {
+      color: #0353a9;
+      background-color: #e6f0ff;
+      text-decoration: none;
+      padding: 12px 15px;
+      margin: 5px 12px;
+      display: inline-block;
+      border-radius: 999px;
+      /* makes it pill-shaped */
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    .sidebar a.active,
+    .sidebar a:hover {
+      background-color: #6f42c1;
+      color: white;
+    }
+
+
+
+/* Submenu styles */
+.submenu {
+  display: none;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.submenu a {
+  background-color: #f4f7ff;
+  margin: 4px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* When submenu-toggle is active, show submenu */
+.submenu-toggle.active + .submenu {
+  display: flex;
+}
+
+/* Content display area */
+.content-area {
+  margin-left: 260px;
+  padding: 20px;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+
+
+    .main-content {
+      margin-left: 240px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+      margin-top: 60px;
+    }
+
+
+
+    .main-content.shifted {
+      margin-left: 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      /* Adjust height to provide space for chart and icon */
+      position: relative;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .card p {
+      font-size: 24px;
+      margin: 5px 0;
+    }
+
+    .status {
+      color: green;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    canvas {
+      max-width: 100px;
+      margin: auto;
+    }
+
+    .card .icon {
+      font-size: 25px;
+      color: #007bff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+
+
+  .iframe-container {
+    margin-top: 20px;
+    padding: 30px;
+  }
+
+  .iframe-section {
+    margin-bottom: 40px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .iframe-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .iframe-section iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+ 
+  </style>
+</head>
+
+<body>
+  <div class="header-container">
+    <div class="top-header">
+      <div class="left-header">
+        <img src="logo.png" alt="Company Logo" />
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <h2 style="font-weight: 1000;">Admin Dashboard</h2>
+      </div>
+      <div class="center-header">
+        <input type="text" placeholder="Search..." />
+      </div>
+      <div class="right-header">
+        <span>🔔</span>
+        <span>📧</span>
+        <span>⚙️</span>
+        <img src="profile.png" alt="User" class="profile-img" />
+        <span class="username">sinchana</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <button class="active">Daily</button>
+    <button>Weekly</button>
+    <button>Monthly</button>
+    <button>Custom</button>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="showSection('home')"><i class="fas fa-tachometer-alt"></i> Home</a>
+    <a href="#" onclick="showSection('crm')"><i class="fas fa-user"></i> CRM</a>
+    <a href="#" onclick="showSection('sales')"><i class="fas fa-store"></i> Sales</a>
+    <a href="#"><i class="fas fa-truck"></i> Milk Collection</a>
+    <a href="#"><i class="fas fa-check-circle"></i> Quality Control</a>
+    <a href="#"><i class="fas fa-cube"></i> Product Inventory</a>
+    <a href="#"><i class="fas fa-truck"></i> Distribution & Logistics</a>
+    <a href="#"><i class="fas fa-store"></i> Retail & Franchise</a>
+
+    <!-- Access control with submenu -->
+    <a href="#" class="submenu-toggle"><i class="fas fa-lock"></i> Access Control</a>
+    <div class="submenu">
+      <a href="#" onclick="showContent('userManagement')">User Management</a>
+      <a href="#" onclick="showContent('rolePermissions')">Role Permissions</a>
+      <a href="#" onclick="showContent('activityLogs')">Activity Logs</a>
+    </div>
+  </div>
+
+  <!-- Access Control Sections -->
+  <div class="content-area">
+    <div id="userManagement" class="content-section">User Management Content</div>
+    <div id="rolePermissions" class="content-section">Role Permissions Content</div>
+    <div id="activityLogs" class="content-section">Activity Logs Content</div>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="main-content" id="mainContent">
+
+    <!-- HOME Section -->
+    <div class="iframe-section" id="homeSection" style="display: none;">
+      <!-- Cards only in Home -->
+      <div class="cards">
+     
+
+      <!-- Total Sales Revenue Card -->
+      <div class="card">
+        <h3>Total Sales Revenue</h3>
+        <canvas id="gauge-sales"></canvas>
+        <p>₹1,500,000</p>
+        <div class="status">▲ 18.2%</div>
+        <i class="fas fa-dollar-sign icon"></i>
+      </div>
+
+      <!-- Active Farmers Card -->
+      <div class="card">
+        <h3>Active Farmers</h3>
+        <canvas id="gauge-farmers"></canvas>
+        <p>5,000+</p>
+        <div class="status">▲ 5.7%</div>
+        <i class="fas fa-user icon"></i>
+      </div>
+
+      <!-- Distributors/Retailers Card -->
+      <div class="card">
+        <h3>Distributors/Retailers</h3>
+        <canvas id="gauge-distributors"></canvas>
+        <p>1,200</p>
+        <div class="status">▲ 8.3%</div>
+        <i class="fas fa-truck-moving icon"></i>
+      </div>
+
+      <!-- Customer Growth Rate Card -->
+      <div class="card">
+        <h3>Customer Growth Rate</h3>
+        <canvas id="gauge-customers"></canvas>
+        <p>12.0%</p>
+        <i class="fas fa-users icon"></i>
+      </div>
+
+      <!-- Quality Metrics Card -->
+      <div class="card">
+        <h3>Quality Metrics</h3>
+        <canvas id="gauge-quality"></canvas>
+        <p>9.6%</p>
+        <i class="fas fa-cogs icon"></i>
+      </div>
+
+      <!-- Environmental Metrics Card -->
+      <div class="card">
+        <h3>Environmental Metrics</h3>
+        <canvas id="gauge-environment"></canvas>
+        <p>7.8%</p>
+        <i class="fas fa-leaf icon"></i>
+      </div>
+
+      <!-- Employee Engagement Card -->
+      <div class="card">
+        <h3>Employee Engagement</h3>
+        <canvas id="gauge-engagement"></canvas>
+        <p>8.5%</p>
+        <i class="fas fa-users-cog icon"></i>
+      </div>
+       <!-- Total Milk Procurement Card -->
+      <div class="card">
+        <h3>Total Milk Procurement</h3>
+        <canvas id="gauge-milk"></canvas>
+        <p>250,000 L</p>
+        <div class="status">▲ 12.5%</div>
+        <i class="fas fa-tint icon"></i>
+      </div>
+    </div>
+      <!-- Home iframes -->
+      <iframe src="Home/milk_production.html" style="width: 100%; height: 750px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="Home/recent_orders.html" style="width: 100%; height: 500px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="Home/top_remainders.html"style="width: 100%; height: 500px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="Home/top_performing.html"style="width: 100%; height: 500px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="Home/contct_support.html"style="width: 100%; height: 550px; border: none; overflow: hidden;" scrolling="no"></iframe>
+    </div>
+
+    <!-- CRM Section -->
+    <div class="iframe-section" id="crmSection" style="display: none;">
+      <iframe src="CRM/crm2.html"style="width: 100%; height: 900px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="CRM/ml.html"style="width: 100%; height: 400px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="CRM/farm.html"style="width: 100%; height: 600px; border: none; overflow: hidden;" scrolling="no"></iframe>
+      <iframe src="CRM/vetr.html"style="width: 100%; height: 600px; border: none; overflow: hidden;" scrolling="no"></iframe>
+
+
+
+    </div>
+
+    <div class="iframe-section" id="salesSection" style="display: none;">
+    <iframe src="Sales/Sales_Performance.html"style="width: 100%; height: 500px; border: none; overflow: hidden;" scrolling="no"></iframe>
+    <iframe src="Sales/salesgraph.html"style="width: 100%; height: 600px; border: none; overflow: hidden;" scrolling="no"></iframe>
+    <iframe src="Sales/monthly_sales_trend.html"style="width: 100%; height: 500px; border: none; overflow: hidden;" scrolling="no"></iframe>
+    <iframe src="Sales/Product_sales_performance.html"style="width: 100%; height: 700px; border: none; overflow: hidden;" scrolling="no"></iframe>
+
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function showSection(section) {
+      document.getElementById('homeSection').style.display = 'none';
+      document.getElementById('crmSection').style.display = 'none';
+      document.getElementById('salesSection').style.display = 'none';
+
+
+
+      if (section === 'home') {
+        document.getElementById('homeSection').style.display = 'block';
+      } else if (section === 'crm') {
+        document.getElementById('crmSection').style.display = 'block';
+      }else if (section === 'sales') {
+        document.getElementById('salesSection').style.display = 'block';
+      }
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('hidden');
+      document.getElementById('mainContent').classList.toggle('shifted');
+    }
+
+    function showContent(sectionId) {
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => section.classList.remove('active'));
+
+      const target = document.getElementById(sectionId);
+      if (target) target.classList.add('active');
+    }
+
+    document.querySelector('.submenu-toggle').addEventListener('click', function (e) {
+      e.preventDefault();
+      this.classList.toggle('active');
+    });
+
+    const gaugeOptions = (value, max = 20) => ({
+      type: 'doughnut',
+      data: {
+        labels: ['Used', 'Remaining'],
+        datasets: [{
+          data: [value, max - value],
+          backgroundColor: ['#FFA500', '#e0e0e0'],
+          borderWidth: 0,
+          cutout: '75%',
+          circumference: 180,
+          rotation: -90,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false },
+        }
+      }
+    });
+
+    const values = {
+      'gauge-milk': 12.5,
+      'gauge-sales': 18.2,
+      'gauge-farmers': 5.7,
+      'gauge-distributors': 8.3,
+      'gauge-customers': 12.0,
+      'gauge-quality': 9.6,
+      'gauge-environment': 7.8,
+      'gauge-engagement': 8.5
+    };
+
+    window.onload = function () {
+      showSection('home');
+      Object.entries(values).forEach(([id, val]) => {
+        const ctx = document.getElementById(id)?.getContext('2d');
+        if (ctx) new Chart(ctx, gaugeOptions(val));
+      });
+    };
+  </script>
+
+  <!-- Load Chart.js if needed -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

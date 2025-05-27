@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Veterinary Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 300px;
+      background-color: #eaf3ff;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card h3::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      background-size: cover;
+    }
+
+    .vaccination h3::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/000000/syringe.png');
+    }
+
+    .health h3::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/000000/stethoscope.png');
+    }
+
+    .entry {
+      margin-bottom: 10px;
+    }
+
+    .entry strong {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .btn {
+      padding: 10px;
+      text-align: center;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 8px 12px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h2>Veterinary</h2>
+    <div class="cards">
+      <!-- Vaccination Card -->
+      <div class="card vaccination">
+        <h3>Upcoming Vaccinations</h3>
+        <div class="entry">
+          <strong>Rajur</strong>
+          Foot & Mouth - Due Apr 25
+        </div>
+        <div class="entry">
+          <strong>Anjali</strong>
+          Brucellosis - Due May 2
+        </div>
+        <div class="btn" onclick="showModal('Rajur', 'Foot & Mouth', 'April 25, 2025')">Schedule Visit</div>
+      </div>
+
+      <!-- Health Check Card -->
+      <div class="card health">
+        <h3>Recent Health Checks</h3>
+        <div class="entry">
+          <strong>Mahesh</strong>
+          32 cattle - All Healthy
+        </div>
+        <div class="entry">
+          <strong>Priya</strong>
+          2 cases of Mastitis
+        </div>
+        <div class="btn" onclick="showModal('Mahesh', '32 cattle', 'All Healthy')">View Reports</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <p id="modalTitle" style="font-weight:bold; font-size: 1.2em;"></p>
+      <p id="modalDetail1"></p>
+      <p id="modalDetail2"></p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function showModal(name, detail1, detail2) {
+      document.getElementById('modalTitle').textContent = name;
+      document.getElementById('modalDetail1').textContent = detail1;
+      document.getElementById('modalDetail2').textContent = detail2;
+      document.getElementById('infoModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('infoModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+
+</body>
+</html>

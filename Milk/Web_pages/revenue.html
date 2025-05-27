@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Revenue of Dairy Farm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #eaeaea;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Revenue of Dairy Farm</h2>
+    <table id="revenueTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Amount Earned</th>
+          <th>Units Sold</th>
+          <th>Revenue Source</th>
+          <th>Sales Region</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be inserted by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const data = [
+      { date: "March 1, 2025", product: "Milk", amount: "₹500", units: "1000 liters", source: "Retail", region: "North Region" },
+      { date: "March 2, 2025", product: "Cheese", amount: "₹300", units: "150 kg", source: "Wholesale", region: "East Region" },
+      { date: "March 3, 2025", product: "Milk", amount: "₹450", units: "900 liters", source: "Retail", region: "West Region" },
+      { date: "March 4, 2025", product: "Butter", amount: "₹200", units: "50 kg", source: "Wholesale", region: "South Region" },
+      { date: "March 5, 2025", product: "Milk", amount: "₹600", units: "1200 liters", source: "Retail", region: "Central Region" }
+    ];
+
+    const tbody = document.querySelector("#revenueTable tbody");
+
+    data.forEach(row => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${row.date}</td>
+        <td>${row.product}</td>
+        <td>${row.amount}</td>
+        <td>${row.units}</td>
+        <td>${row.source}</td>
+        <td>${row.region}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Milk Collection Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-left: 5px solid #4f46e5;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .card-value {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .card-note {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: green;
+    }
+
+    .card-note.green {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h2>Milk Collection</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">TODAY'S COLLECTION</div>
+        <div class="card-value" id="todayCollection">--</div>
+        <div class="card-note" id="todayChange">--</div>
+      </div>
+      <div class="card">
+        <div class="card-title">THIS WEEK'S AVG.</div>
+        <div class="card-value" id="weeklyAvg">--</div>
+        <div class="card-note" id="weekChange">--</div>
+      </div>
+      <div class="card">
+        <div class="card-title">TOP FARMER TODAY</div>
+        <div class="card-value" id="topFarmer">--</div>
+        <div class="card-note" id="topVolume">--</div>
+      </div>
+      <div class="card">
+        <div class="card-title">AVG. FAT CONTENT</div>
+        <div class="card-value" id="fatContent">--</div>
+        <div class="card-note green">Within ideal range</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      todayCollection: 2142,
+      todayChange: 8,
+      weeklyAvg: 1965,
+      weekChange: 5,
+      topFarmer: "Mahesh",
+      topVolume: 148,
+      fatContent: 4.8
+    };
+
+    document.getElementById("todayCollection").textContent = `${data.todayCollection} L`;
+    document.getElementById("todayChange").textContent = `↑ ${data.todayChange}% from yesterday`;
+
+    document.getElementById("weeklyAvg").textContent = `${data.weeklyAvg} L/day`;
+    document.getElementById("weekChange").textContent = `↑ ${data.weekChange}% from last week`;
+
+    document.getElementById("topFarmer").textContent = data.topFarmer;
+    document.getElementById("topVolume").textContent = `${data.topVolume} L supplied`;
+
+    document.getElementById("fatContent").textContent = `${data.fatContent}%`;
+  </script>
+
+</body>
+</html>

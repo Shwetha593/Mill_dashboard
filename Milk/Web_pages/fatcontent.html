@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quality and Fat Content Analysis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f6fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      flex: 1 1 350px;
+      max-width: 450px;
+    }
+
+    .card h3 {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    /* QUALITY DISTRIBUTION */
+    .grade-boxes {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .grade-box {
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 10px 0;
+      width: 20%;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .grade-a { background: #4caf50; }
+    .grade-b { background: #ffca28; color: #000; }
+    .grade-c { background: #ff9800; }
+    .grade-d { background: #f44336; }
+
+    .grade-percent,
+    .grade-label {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      padding-top: 5px;
+    }
+
+    .grade-percent div,
+    .grade-label div {
+      width: 20%;
+      font-size: 0.85rem;
+    }
+
+    .bar-container {
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      margin-top: 15px;
+    }
+
+    .bar-a { background: #4caf50; width: 42%; }
+    .bar-b { background: #ffca28; width: 35%; }
+    .bar-c { background: #ff9800; width: 18%; }
+    .bar-d { background: #f44336; width: 5%; }
+
+    /* FAT CONTENT */
+    .fat-info-number {
+      text-align: center;
+      font-size: 2rem;
+      color: #2196f3;
+      font-weight: bold;
+    }
+
+    .fat-info-label {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .fat-labels {
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+    }
+
+    .fat-bar {
+      background: #e0f7fa;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .fat-fill {
+      background: #00bcd4;
+      height: 100%;
+      width: 65%;
+    }
+
+    .fat-list {
+      margin-top: 15px;
+    }
+
+    .fat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Quality Distribution -->
+    <div class="card">
+      <h3>Quality Distribution</h3>
+      <div class="grade-boxes">
+        <div class="grade-box grade-a">A</div>
+        <div class="grade-box grade-b">B</div>
+        <div class="grade-box grade-c">C</div>
+        <div class="grade-box grade-d">D</div>
+      </div>
+      <div class="grade-percent">
+        <div>42%</div>
+        <div>35%</div>
+        <div>18%</div>
+        <div>5%</div>
+      </div>
+      <div class="grade-label">
+        <div>Excellent</div>
+        <div>Good</div>
+        <div>Average</div>
+        <div>Poor</div>
+      </div>
+      <div class="bar-container">
+        <div class="bar-a"></div>
+        <div class="bar-b"></div>
+        <div class="bar-c"></div>
+        <div class="bar-d"></div>
+      </div>
+    </div>
+
+    <!-- Fat Content Analysis -->
+    <div class="card">
+      <h3>Fat Content Analysis</h3>
+      <div class="fat-info-number">3.9%</div>
+      <div class="fat-info-label">Average Fat Content</div>
+      <div class="fat-labels">
+        <span>Min: 2.9%</span>
+        <span>Max: 4.5%</span>
+      </div>
+      <div class="fat-bar">
+        <div class="fat-fill"></div>
+      </div>
+      <div class="fat-list">
+        <div class="fat-row"><span>0-2.9% (Rejected)</span><span>5%</span></div>
+        <div class="fat-row"><span>3.0-3.5% (Grade C)</span><span>18%</span></div>
+        <div class="fat-row"><span>3.6-4.0% (Grade B)</span><span>35%</span></div>
+        <div class="fat-row"><span>4.1%+ (Grade A)</span><span>42%</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
