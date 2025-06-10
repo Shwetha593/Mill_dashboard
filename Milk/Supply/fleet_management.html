@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fleet Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+
+    .title img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .metrics {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .metric {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .metric-title {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .progress {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 8px;
+      background-color: #3b82f6;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background-color: #f3f4f6;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .in-transit {
+      background-color: #dbeafe;
+      color: #2563eb;
+    }
+
+    .completed {
+      background-color: #dcfce7;
+      color: #22c55e;
+    }
+
+    .actions i {
+      margin-right: 10px;
+      cursor: pointer;
+      color: #4b5563;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="title">
+      <i class="fas fa-truck"></i>
+      Fleet Management
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-title">Vehicle Utilization</div>
+        <div class="progress"><div class="bar" style="width: 83%;"></div></div>
+        <div class="meta"><span>Target: 85%</span><span style="color: green;">↑ 2%</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-title">Maintenance Compliance</div>
+        <div class="progress"><div class="bar" style="width: 95%;"></div></div>
+        <div class="meta"><span>Target: 100%</span><span style="color: green;">↑ 5%</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-title">On-Time Delivery</div>
+        <div class="progress"><div class="bar" style="width: 91%;"></div></div>
+        <div class="meta"><span>Target: 95%</span><span style="color: red;">↓ 1%</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-title">Driver Performance</div>
+        <div class="progress"><div class="bar" style="width: 88%;"></div></div>
+        <div class="meta"><span>Target: 90%</span><span style="color: green;">↑ 3%</span></div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Route ID</th>
+          <th>Driver</th>
+          <th>Vehicle</th>
+          <th>Destinations</th>
+          <th>Distance</th>
+          <th>Departure</th>
+          <th>ETA</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RT-0425-01</td>
+          <td>Ramesh Kumar</td>
+          <td>Refrigerated Van #5</td>
+          <td>4 stops</td>
+          <td>42 km</td>
+          <td>08:15 AM</td>
+          <td>11:30 AM</td>
+          <td><span class="badge in-transit">In Transit</span></td>
+          <td class="actions">
+            <i class="fas fa-map-marker-alt"></i>
+            <i class="fas fa-phone"></i>
+          </td>
+        </tr>
+        <tr>
+          <td>RT-0425-02</td>
+          <td>Suresh Patel</td>
+          <td>Refrigerated Van #2</td>
+          <td>6 stops</td>
+          <td>38 km</td>
+          <td>07:30 AM</td>
+          <td>10:45 AM</td>
+          <td><span class="badge completed">Completed</span></td>
+          <td class="actions">
+            <i class="fas fa-receipt"></i>
+            <i class="fas fa-sync-alt"></i>
+          </td>
+        </tr>
+        <tr>
+          <td>RT-0425-03</td>
+          <td>Anita Singh</td>
+          <td>Refrigerated Van #8</td>
+          <td>5 stops</td>
+          <td>45 km</td>
+          <td>09:00 AM</td>
+          <td>12:30 PM</td>
+          <td><span class="badge in-transit">In Transit</span></td>
+          <td class="actions">
+            <i class="fas fa-map-marker-alt"></i>
+            <i class="fas fa-phone"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

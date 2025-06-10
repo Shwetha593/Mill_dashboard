@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      background: linear-gradient(to right, #e0f7fa, #f0f4f8);
       margin: 0;
       padding: 20px;
     }
@@ -39,7 +39,6 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .card h3 {
@@ -85,6 +84,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s ease;
+      margin-top: auto;
     }
 
     .btn:hover {
@@ -95,7 +95,7 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
+      z-index: 9999;
       left: 0;
       top: 0;
       width: 100%;
@@ -105,88 +105,155 @@
 
     .modal-content {
       background-color: #fff;
-      margin: 15% auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content input, .modal-content button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #45a049;
     }
 
     .close-btn {
-      margin-top: 15px;
-      padding: 8px 12px;
-      background: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      background-color: #f44336 !important;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="dashboard">
-    <h2>Veterinary</h2>
-    <div class="cards">
-      <!-- Vaccination Card -->
-      <div class="card vaccination">
-        <h3>Upcoming Vaccinations</h3>
-        <div class="entry">
-          <strong>Rajur</strong>
-          Foot & Mouth - Due Apr 25
-        </div>
-        <div class="entry">
-          <strong>Anjali</strong>
-          Brucellosis - Due May 2
-        </div>
-        <div class="btn" onclick="showModal('Rajur', 'Foot & Mouth', 'April 25, 2025')">Schedule Visit</div>
-      </div>
+<div class="dashboard">
+  <h2>Veterinary</h2>
+  <div class="cards">
 
-      <!-- Health Check Card -->
-      <div class="card health">
-        <h3>Recent Health Checks</h3>
-        <div class="entry">
-          <strong>Mahesh</strong>
-          32 cattle - All Healthy
-        </div>
-        <div class="entry">
-          <strong>Priya</strong>
-          2 cases of Mastitis
-        </div>
-        <div class="btn" onclick="showModal('Mahesh', '32 cattle', 'All Healthy')">View Reports</div>
+    <!-- Vaccination Card -->
+    <div class="card vaccination">
+      <h3>Upcoming Vaccinations</h3>
+      <div class="entry"><strong>Rajur</strong>Foot & Mouth - Due Apr 25</div>
+      <div class="entry"><strong>Anjali</strong>Brucellosis - Due May 2</div>
+      <div id="vaccinationList"></div>
+      <div class="btn" onclick="openScheduleModal()">Schedule Visit</div>
+    </div>
+
+    <!-- Health Check Card -->
+    <div class="card health">
+      <h3>Recent Health Checks</h3>
+      <div class="entry">
+        <strong>Mahesh</strong>32 cattle - All Healthy
+        <div class="btn" onclick="openReportModal('Mahesh', '32 cattle - All Healthy')">View Reports</div>
+      </div>
+      <div class="entry">
+        <strong>Priya</strong>2 cases of Mastitis
+        <div class="btn" onclick="openReportModal('Priya', '2 cases of Mastitis')">View Reports</div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal -->
-  <div id="infoModal" class="modal">
-    <div class="modal-content">
-      <p id="modalTitle" style="font-weight:bold; font-size: 1.2em;"></p>
-      <p id="modalDetail1"></p>
-      <p id="modalDetail2"></p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="infoModal" class="modal">
+  <div class="modal-content" id="modalBody">
+    <!-- Content will be dynamically inserted here -->
+  </div>
+</div>
+
+<script>
+  function openScheduleModal() {
+    const modal = document.getElementById("infoModal");
+    const modalBody = document.getElementById("modalBody");
+
+    modalBody.innerHTML = `
+      <h3>Schedule Vaccination</h3>
+      <input type="text" id="animalName" placeholder="Animal Name" required />
+      <input type="text" id="vaccineName" placeholder="Vaccine Type" required />
+      <input type="date" id="vaccineDate" required />
+      <button onclick="scheduleVaccination()">Schedule</button>
       <button class="close-btn" onclick="closeModal()">Close</button>
-    </div>
-  </div>
+    `;
 
-  <script>
-    function showModal(name, detail1, detail2) {
-      document.getElementById('modalTitle').textContent = name;
-      document.getElementById('modalDetail1').textContent = detail1;
-      document.getElementById('modalDetail2').textContent = detail2;
-      document.getElementById('infoModal').style.display = 'block';
+    modal.style.display = "block";
+  }
+
+  function openReportModal(name, details) {
+    const modal = document.getElementById("infoModal");
+    const modalBody = document.getElementById("modalBody");
+
+    modalBody.innerHTML = `
+      <h3>Health Report</h3>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Details:</strong> ${details}</p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    `;
+
+    modal.style.display = "block";
+  }
+
+  function scheduleVaccination() {
+    const name = document.getElementById("animalName").value.trim();
+    const vaccine = document.getElementById("vaccineName").value.trim();
+    const date = document.getElementById("vaccineDate").value;
+
+    const nameValid = /^[a-zA-Z]{3,}$/.test(name);
+    const vaccineValid = /^[a-zA-Z ]{3,}$/.test(vaccine);
+
+    if (!nameValid) {
+      alert("Animal name must be at least 3 alphabetic characters.");
+      return;
     }
 
-    function closeModal() {
-      document.getElementById('infoModal').style.display = 'none';
+    if (!vaccineValid) {
+      alert("Vaccine name must be at least 3 alphabetic characters.");
+      return;
     }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById('infoModal');
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
-    };
-  </script>
+    if (!date) {
+      alert("Please select a valid date.");
+      return;
+    }
+
+    const list = document.getElementById("vaccinationList");
+    const entry = document.createElement("div");
+    entry.className = "entry";
+    entry.innerHTML = `<strong>${name}</strong>${vaccine} - Due ${new Date(date).toLocaleDateString()}`;
+    list.appendChild(entry);
+
+    closeModal();
+  }
+
+  function closeModal() {
+    document.getElementById("infoModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('infoModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+</script>
 
 </body>
 </html>

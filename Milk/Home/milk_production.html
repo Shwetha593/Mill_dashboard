@@ -9,7 +9,8 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f5f8fb;
-      margin: 20px;
+      margin: 0;
+      padding: 20px;
       color: #333;
     }
 
@@ -20,34 +21,25 @@
 
     .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .card {
       background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       position: relative;
       overflow: hidden;
     }
 
     .card h3 {
-      font-size: 16px;
-      margin: 0 0 10px 36px;
-      color: #333;
-    }
-
-    .zoom-icon {
-      position: absolute;
-      top: 18px;
-      left: 16px;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #0d6efd;
-      border-radius: 50%;
-      background: #fff;
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #222;
     }
 
     canvas {
@@ -95,41 +87,40 @@
     .close:hover {
       color: #000;
     }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
- 
+
+  
 
   <div class="dashboard">
-    <!-- Monthly Milk Chart -->
     <div class="card">
-     
       <h3>Monthly Milk Production (L)</h3>
       <canvas id="monthlyMilkChart"></canvas>
     </div>
 
-    <!-- Daily Milk Chart -->
     <div class="card">
-     
       <h3>Daily Milk Production (L)</h3>
       <canvas id="dailyMilkChart"></canvas>
     </div>
 
-    <!-- Sales Breakdown -->
     <div class="card small-donut">
-    
       <h3>Sales Breakdown</h3>
       <canvas id="salesChart"></canvas>
     </div>
 
-    <!-- Farmer Registrations (remain in code) -->
     <div class="card">
       <h3>Farmer Registrations</h3>
       <canvas id="farmerChart"></canvas>
     </div>
   </div>
 
-  <!-- Modal -->
   <div id="chartModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -182,12 +173,10 @@
             y: {
               beginAtZero: true,
               ticks: {
-stepSize:2000,
-max:6000,
-
-
-
- callback: v => v + ' L' }
+                stepSize: 2000,
+                max: 6000,
+                callback: v => v + ' L'
+              }
             }
           }
         }
@@ -207,10 +196,9 @@ max:6000,
           scales: {
             y: {
               beginAtZero: true,
-              ticks: { 
-
-
-callback: v => v + ' L' }
+              ticks: {
+                callback: v => v + ' L'
+              }
             }
           }
         }
@@ -253,7 +241,9 @@ callback: v => v + ' L' }
         options: {
           responsive: true,
           scales: {
-            y: { beginAtZero: true }
+            y: {
+              beginAtZero: true
+            }
           }
         }
       });

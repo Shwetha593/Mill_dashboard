@@ -6,9 +6,9 @@
   <title>Farm Support Dashboard</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 40px;
-      background: #f0f2f5;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f0f4f8);
+     
       font-size: 18px;
     }
 
@@ -71,14 +71,14 @@
     #newTicketModal {
       display: none;
       position: fixed;
-      top: 15%;
+      top: 2%;
       left: 50%;
       transform: translateX(-50%);
       background: white;
       padding: 30px;
-      width: 400px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       z-index: 1000;
     }
 
@@ -90,9 +90,17 @@
     input, select {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 2px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     .delete-button {
@@ -102,6 +110,12 @@
       padding: 6px 10px;
       border-radius: 6px;
       cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.85em;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -125,8 +139,7 @@
       </tr>
     </thead>
     <tbody id="ticketTableBody">
-
- <tr>
+      <tr>
         <td>#DFT1001</td>
         <td>Anjali</td>
         <td>Milk Testing</td>
@@ -152,23 +165,17 @@
         <td>2025-04-15</td>
         <td><span class="badge Resolved">Resolved</span></td>
         <td><button class="delete-button" onclick="confirmDelete(this)">Delete</button></td>
-      </tr>      
-
-
-
-
-
-
-
-
+      </tr>
     </tbody>
   </table>
 
   <!-- Modal -->
   <div id="newTicketModal">
     <h3>Create New Ticket</h3>
+
     <label class="modal-label">Farmer Name:</label>
     <input id="farmerName" />
+    <div id="nameError" class="error"></div>
 
     <label class="modal-label">Issue Type:</label>
     <select id="issueType">
@@ -191,9 +198,10 @@
       <option>Resolved</option>
     </select>
 
-    <br><br>
-    <button onclick="addTicket()">Submit</button>
-    <button style="background-color: grey;" onclick="closeNewTicketModal()">Cancel</button>
+    <div class="modal-buttons">
+      <button onclick="addTicket()">Submit</button>
+      <button style="background-color: grey;" onclick="closeNewTicketModal()">Cancel</button>
+    </div>
   </div>
 
   <script>
@@ -207,23 +215,21 @@
       const status = document.getElementById('statusSelect').value;
       const date = new Date().toISOString().split('T')[0];
 
-      if (!farmer) {
-        alert("Farmer name is required.");
+      const nameError = document.getElementById('nameError');
+      nameError.textContent = '';
+
+      // Validate farmer name
+      if (!farmer || !/^[A-Za-z\s]{3,}$/.test(farmer)) {
+        nameError.textContent = "Please enter a valid name (at least 3 letters).";
         return;
       }
-
-if (!/^[A-Za-z\s]+$/.test(farmer)) {
-    alert("Farmer name must contain only alphabets");
-    return;
-  }
-
 
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>#DFT${ticketCount++}</td>
         <td>${farmer}</td>
         <td>${issue}</td>
-        <td><span class="badge ${priority}">${priority}</span></td>
+        <td><span class="badge ${priority}">${priority.toUpperCase()}</span></td>
         <td>${date}</td>
         <td><span class="badge ${status.replace(/\s/g, '')}">${status}</span></td>
         <td><button class="delete-button" onclick="confirmDelete(this)">Delete</button></td>
@@ -248,6 +254,7 @@ if (!/^[A-Za-z\s]+$/.test(farmer)) {
       document.getElementById('issueType').selectedIndex = 0;
       document.getElementById('priority').selectedIndex = 0;
       document.getElementById('statusSelect').selectedIndex = 0;
+      document.getElementById('nameError').textContent = '';
     }
   </script>
 </body>
