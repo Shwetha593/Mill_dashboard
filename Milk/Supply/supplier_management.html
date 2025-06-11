@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Supplier Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 10px;
+      color: #1c1c1c;
+    }
+    .header {
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .btn-container {
+      margin-bottom: 10px;
+    }
+    .btn {
+      background-color: #4a7bfc;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .underline {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(to right, #4a7bfc, #00c2a8);
+      border-radius: 5px;
+      margin-bottom: 25px;
+    }
+    .container {
+      max-width: 1100px;
+      margin-left: 0;
+    }
+    .cards {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      flex: 1 1 200px;
+      border-left: 4px solid #00c2a8;
+      min-width: 150px;
+      min-height: 100px;
+      position: relative;
+    }
+    .card strong {
+      font-size: 18px;
+    }
+    .progress-bar {
+      height: 6px;
+      background-color: #4a7bfc;
+      border-radius: 5px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 350px;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .stars {
+      display: flex;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .stars i {
+      font-size: 18px;
+      color: #ccc;
+    }
+    .stars i.selected {
+      color: gold;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .modal-footer button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+    }
+    .cancel-btn {
+      background: #ccc;
+    }
+    .submit-btn {
+      background: #4a7bfc;
+      color: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+    thead {
+      background: #f0f2f5;
+    }
+    tbody tr:nth-child(even) {
+      background: #fafafa;
+    }
+    .action-icons i {
+      cursor: pointer;
+      margin: 0 5px;
+      font-size: 16px;
+      color: #555;
+    }
+    .action-icons i:hover {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+<div class="container">
+  <div class="header">
+    <i class="fas fa-boxes"></i> Supplier Management
+  </div>
+
+  <div class="btn-container">
+    <button class="btn" onclick="openModal()">+ Add Supplier</button>
+  </div>
+  <div class="underline"></div>
+
+  <div class="cards">
+    <div class="card">
+      Active Suppliers<br><strong>42</strong>
+    </div>
+    <div class="card">
+      Avg. Lead Time<br><strong>3.2 days</strong>
+    </div>
+    <div class="card">
+      On-Time Delivery<br><strong>92%</strong>
+      <div class="progress-bar" style="width: 92%;"></div>
+    </div>
+    <div class="card">
+      Quality Compliance<br><strong>96.5%</strong>
+      <div class="progress-bar" style="width: 96.5%;"></div>
+    </div>
+  </div>
+
+  <!-- Add Supplier Modal -->
+  <div class="modal" id="supplierModal">
+    <div class="modal-content">
+      <h3>Add New Supplier</h3>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="name" oninput="validateName(this)" placeholder="Enter supplier name">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="category">
+<option value="" disabled selected>Select Category</option>
+          <option>Raw Milk</option>
+          <option>Cattle Feed</option>
+          <option>Packaging</option>
+          <option>Organic Feed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" id="location" placeholder="Enter location">
+      </div>
+      <div class="form-group">
+        <label>Reliability Score</label>
+        <div class="stars" id="starRating">
+          <i class="fas fa-star" data-val="1"></i>
+          <i class="fas fa-star" data-val="2"></i>
+          <i class="fas fa-star" data-val="3"></i>
+          <i class="fas fa-star" data-val="4"></i>
+          <i class="fas fa-star" data-val="5"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Last Delivery</label>
+        <input type="date" id="lastDelivery">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="status">
+<option value="" disabled selected>Select status</option>
+          <option>Active</option>
+          <option>Under Review</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="submit-btn">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supplier Table -->
+<table >
+
+    <thead>
+      <tr>
+        <th>SUPPLIER ID</th>
+        <th>NAME</th>
+        <th>CATEGORY</th>
+        <th>LOCATION</th>
+        <th>RELIABILITY SCORE</th>
+        <th>LAST DELIVERY</th>
+        <th>STATUS</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody id="supplierTableBody">
+      <tr>
+        <td>SUP-101</td>
+        <td>Rajesh Dairy Farm</td>
+        <td>Raw Milk</td>
+        <td>Bangalore Rural</td>
+        <td style="color: gold;">★★★★☆</td>
+        <td>2025-04-25</td>
+        <td style="color: green; font-weight: bold;">Active</td>
+        <td class="action-icons">
+          <i class="fas fa-eye" onclick="viewSupplier(this)"></i>
+          <i class="fas fa-edit" onclick="editSupplier(this)"></i>
+          <i class="fas fa-trash" onclick="deleteSupplier(this)"></i>
+        </td>
+      </tr>
+      <tr>
+        <td>SUP-002</td>
+        <td>Agri Feeds Ltd</td>
+        <td>Cattle Feed</td>
+        <td>Tumkur</td>
+        <td style="color: gold;">★★★☆☆</td>
+        <td>2025-05-20</td>
+        <td style="color: green; font-weight: bold;">Active</td>
+        <td class="action-icons">
+          <i class="fas fa-eye" onclick="viewSupplier(this)"></i>
+          <i class="fas fa-edit" onclick="editSupplier(this)"></i>
+          <i class="fas fa-trash" onclick="deleteSupplier(this)"></i>
+        </td>
+      </tr>
+
+
+ <tr>
+        <td>SUP-003</td>
+        <td>Green pastures</td>
+        <td>Cattle Feed</td>
+        <td>Coimbatore</td>
+        <td style="color: gold;">★★★☆☆</td>
+        <td>2025-03-10</td>
+        <td style="color: orange; font-weight: bold;">Under Review</td>
+        <td class="action-icons">
+          <i class="fas fa-eye" onclick="viewSupplier(this)"></i>
+          <i class="fas fa-edit" onclick="editSupplier(this)"></i>
+          <i class="fas fa-trash" onclick="deleteSupplier(this)"></i>
+        </td>
+      </tr>
+
+      <tr>
+        <td>SUP-004</td>
+        <td>PackWell Solutions</td>
+        <td>Packaging</td>
+        <td>Hoskote</td>
+        <td style="color: gold;">★★★★★</td>
+        <td>2025-05-26</td>
+        <td style="color: green; font-weight: bold;">Active</td>
+        <td class="action-icons">
+          <i class="fas fa-eye" onclick="viewSupplier(this)"></i>
+          <i class="fas fa-edit" onclick="editSupplier(this)"></i>
+          <i class="fas fa-trash" onclick="deleteSupplier(this)"></i>
+        </td>
+      </tr>
+    </tbody>
+</table>
+
+
+
+
+  <!-- View Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-content" id="viewContent">
+      <h3>Supplier Info</h3>
+      <div id="viewDetails"></div>
+      <div class="modal-footer">
+        <button onclick="closeViewModal()" class="submit-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Edit Supplier Modal -->
+<div class="modal" id="editSupplierModal">
+  <div class="modal-content">
+    <h3>Edit Supplier</h3>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" id="editName" oninput="validateName(this)">
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="editCategory">
+<option value="" disabled selected>Select Category</option>
+        <option>Raw Milk</option>
+        <option>Cattle Feed</option>
+        <option>Packaging</option>
+        <option>Organic Feed</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" id="editLocation">
+    </div>
+    <div class="form-group">
+      <label>Reliability Score</label>
+      <div class="stars" id="editStarRating">
+        <i class="fas fa-star" data-val="1"></i>
+        <i class="fas fa-star" data-val="2"></i>
+        <i class="fas fa-star" data-val="3"></i>
+        <i class="fas fa-star" data-val="4"></i>
+        <i class="fas fa-star" data-val="5"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Last Delivery</label>
+      <input type="date" id="editLastDelivery">
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="editStatus">
+<option value="" disabled selected>Select status</option>
+        <option>Active</option>
+        <option>Under Review</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+      <button class="submit-btn" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal" id="confirmDeleteModal">
+    <div class="modal-content">
+      <h3>Confirm Delete</h3>
+      <p>Are you sure you want to delete this supplier?</p>
+      <div class="modal-footer">
+        <button class="cancel-btn" onclick="closeDeleteModal()">Cancel</button>
+        <button class="submit-btn" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+<!-- [HTML layout omitted for brevity — you already included the full HTML structure above] -->
+
+<!-- Add this at the bottom of your file before the closing </body> -->
+<script>
+  let selectedStars = 0;
+  let deleteRow = null;
+  let editRow = null;
+  let editStars = 0;
+
+  function openModal() {
+    document.getElementById('supplierModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('supplierModal').style.display = 'none';
+  }
+
+  function validateName(input) {
+    input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+  }
+
+  // Star rating selection (Add Modal)
+  document.querySelectorAll("#starRating i").forEach(star => {
+    star.addEventListener("click", () => {
+      selectedStars = parseInt(star.dataset.val);
+      document.querySelectorAll("#starRating i").forEach((s, index) => {
+        s.classList.toggle("selected", index < selectedStars);
+      });
+    });
+  });
+
+let supplierCount=5;
+ // Add supplier submit
+document.querySelector("#supplierModal .submit-btn").addEventListener("click", () => {
+  const name = document.getElementById('name').value.trim();
+  const category = document.getElementById('category').value;
+  const location = document.getElementById('location').value.trim();
+  const lastDelivery = document.getElementById('lastDelivery').value;
+  const status = document.getElementById('status').value;
+
+  // Validate all fields are filled
+  if (!name || !category || !location || !lastDelivery || !status || selectedStars === 0) {
+    alert("Please fill in all fields and select reliability rating.");
+    return;
+  }
+
+  // Validate name: only alphabets and spaces, at least 3 characters
+  if (!/^[a-zA-Z\s]{3,}$/.test(name)) {
+    alert("Name must be at least 3 characters long and contain only alphabets and spaces.");
+    return;
+  }
+
+  // Validate location: only alphabets and spaces, at least 3 characters
+  if (!/^[a-zA-Z\s]{3,}$/.test(location)) {
+    alert("Location must be at least 3 characters long and contain only alphabets and spaces.");
+    return;
+  }
+
+  const supplierId = "SUP-" + supplierCount.toString().padStart(3,'0');
+  supplierCount++;
+
+
+  const stars = "★".repeat(selectedStars) + "☆".repeat(5 - selectedStars);
+
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${supplierId}</td>
+    <td>${name}</td>
+    <td>${category}</td>
+    <td>${location}</td>
+    <td style="color: gold;">${stars}</td>
+    <td>${lastDelivery}</td>
+    <td style="color: ${status === 'Active' ? 'green' : 'orange'}; font-weight: bold;">${status}</td>
+    <td class="action-icons">
+      <i class="fas fa-eye" onclick="viewSupplier(this)"></i>
+      <i class="fas fa-edit" onclick="editSupplier(this)"></i>
+      <i class="fas fa-trash" onclick="deleteSupplier(this)"></i>
+    </td>
+  `;
+  document.getElementById("supplierTableBody").appendChild(row);
+
+  closeModal();
+});
+
+
+
+  function viewSupplier(icon) {
+    const row = icon.closest("tr");
+    const cells = row.querySelectorAll("td");
+    const details = `
+      <p><strong>Name:</strong> ${cells[1].textContent}</p>
+      <p><strong>Category:</strong> ${cells[2].textContent}</p>
+      <p><strong>Location:</strong> ${cells[3].textContent}</p>
+      <p><strong>Last Delivery:</strong> ${cells[5].textContent}</p>
+      <p><strong>Status:</strong> ${cells[6].textContent}</p>
+    `;
+    document.getElementById("viewDetails").innerHTML = details;
+    document.getElementById("viewModal").style.display = "flex";
+  }
+
+  function closeViewModal() {
+    document.getElementById("viewModal").style.display = "none";
+  }
+
+  function deleteSupplier(icon) {
+    deleteRow = icon.closest("tr");
+    document.getElementById("confirmDeleteModal").style.display = "flex";
+  }
+
+  function closeDeleteModal() {
+    document.getElementById("confirmDeleteModal").style.display = "none";
+  }
+
+  function confirmDelete() {
+    if (deleteRow) deleteRow.remove();
+    closeDeleteModal();
+  }
+
+  function editSupplier(icon) {
+    editRow = icon.closest("tr");
+    const cells = editRow.querySelectorAll("td");
+    document.getElementById("editName").value = cells[1].textContent;
+    document.getElementById("editCategory").value = cells[2].textContent;
+    document.getElementById("editLocation").value = cells[3].textContent;
+    document.getElementById("editLastDelivery").value = cells[5].textContent;
+    document.getElementById("editStatus").value = cells[6].textContent.trim();
+
+    const filledStars = cells[4].textContent.split('★').length - 1;
+    editStars = filledStars;
+    document.querySelectorAll("#editStarRating i").forEach((star, idx) => {
+      star.classList.toggle("selected", idx < editStars);
+    });
+
+    document.getElementById("editSupplierModal").style.display = "flex";
+  }
+
+  function closeEditModal() {
+    document.getElementById("editSupplierModal").style.display = "none";
+  }
+
+  // Edit modal star handling
+  document.querySelectorAll("#editStarRating i").forEach(star => {
+    star.addEventListener("click", () => {
+      editStars = parseInt(star.dataset.val);
+      document.querySelectorAll("#editStarRating i").forEach((s, index) => {
+        s.classList.toggle("selected", index < editStars);
+      });
+    });
+  });
+
+  function saveEdit() {
+    const name = document.getElementById("editName").value.trim();
+    if (!name.match(/^[a-zA-Z\s]+$/)) {
+      alert("Name must contain only alphabets.");
+      return;
+    }
+
+    editRow.cells[1].textContent = name;
+    editRow.cells[2].textContent = document.getElementById("editCategory").value;
+    editRow.cells[3].textContent = document.getElementById("editLocation").value;
+    editRow.cells[4].innerHTML = "★".repeat(editStars) + "☆".repeat(5 - editStars);
+    editRow.cells[5].textContent = document.getElementById("editLastDelivery").value;
+
+    const status = document.getElementById("editStatus").value;
+    editRow.cells[6].textContent = status;
+    editRow.cells[6].style.color = status === "Active" ? "green" : "orange";
+
+    closeEditModal();
+  }
+</script>
+</body>
+</html>

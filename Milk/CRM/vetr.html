@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Veterinary Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f0f4f8);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 300px;
+      background-color: #eaf3ff;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card h3::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      background-size: cover;
+    }
+
+    .vaccination h3::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/000000/syringe.png');
+    }
+
+    .health h3::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/000000/stethoscope.png');
+    }
+
+    .entry {
+      margin-bottom: 10px;
+    }
+
+    .entry strong {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .btn {
+      padding: 10px;
+      text-align: center;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      margin-top: auto;
+    }
+
+    .btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content input, .modal-content button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #45a049;
+    }
+
+    .close-btn {
+      background-color: #f44336 !important;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+  <h2>Veterinary</h2>
+  <div class="cards">
+
+    <!-- Vaccination Card -->
+    <div class="card vaccination">
+      <h3>Upcoming Vaccinations</h3>
+      <div class="entry"><strong>Rajur</strong>Foot & Mouth - Due Apr 25</div>
+      <div class="entry"><strong>Anjali</strong>Brucellosis - Due May 2</div>
+      <div id="vaccinationList"></div>
+      <div class="btn" onclick="openScheduleModal()">Schedule Visit</div>
+    </div>
+
+    <!-- Health Check Card -->
+    <div class="card health">
+      <h3>Recent Health Checks</h3>
+      <div class="entry">
+        <strong>Mahesh</strong>32 cattle - All Healthy
+        <div class="btn" onclick="openReportModal('Mahesh', '32 cattle - All Healthy')">View Reports</div>
+      </div>
+      <div class="entry">
+        <strong>Priya</strong>2 cases of Mastitis
+        <div class="btn" onclick="openReportModal('Priya', '2 cases of Mastitis')">View Reports</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="infoModal" class="modal">
+  <div class="modal-content" id="modalBody">
+    <!-- Content will be dynamically inserted here -->
+  </div>
+</div>
+
+<script>
+  function openScheduleModal() {
+    const modal = document.getElementById("infoModal");
+    const modalBody = document.getElementById("modalBody");
+
+    modalBody.innerHTML = `
+      <h3>Schedule Vaccination</h3>
+      <input type="text" id="animalName" placeholder="Animal Name" required />
+      <input type="text" id="vaccineName" placeholder="Vaccine Type" required />
+      <input type="date" id="vaccineDate" required />
+      <button onclick="scheduleVaccination()">Schedule</button>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    `;
+
+    modal.style.display = "block";
+  }
+
+  function openReportModal(name, details) {
+    const modal = document.getElementById("infoModal");
+    const modalBody = document.getElementById("modalBody");
+
+    modalBody.innerHTML = `
+      <h3>Health Report</h3>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Details:</strong> ${details}</p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    `;
+
+    modal.style.display = "block";
+  }
+
+  function scheduleVaccination() {
+    const name = document.getElementById("animalName").value.trim();
+    const vaccine = document.getElementById("vaccineName").value.trim();
+    const date = document.getElementById("vaccineDate").value;
+
+    const nameValid = /^[a-zA-Z]{3,}$/.test(name);
+    const vaccineValid = /^[a-zA-Z ]{3,}$/.test(vaccine);
+
+    if (!nameValid) {
+      alert("Animal name must be at least 3 alphabetic characters.");
+      return;
+    }
+
+    if (!vaccineValid) {
+      alert("Vaccine name must be at least 3 alphabetic characters.");
+      return;
+    }
+
+    if (!date) {
+      alert("Please select a valid date.");
+      return;
+    }
+
+    const list = document.getElementById("vaccinationList");
+    const entry = document.createElement("div");
+    entry.className = "entry";
+    entry.innerHTML = `<strong>${name}</strong>${vaccine} - Due ${new Date(date).toLocaleDateString()}`;
+    list.appendChild(entry);
+
+    closeModal();
+  }
+
+  function closeModal() {
+    document.getElementById("infoModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('infoModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+</script>
+
+</body>
+</html>
