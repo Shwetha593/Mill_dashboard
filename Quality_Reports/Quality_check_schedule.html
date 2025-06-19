@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quality Check Schedule</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f8fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    h4 {
+      margin-top: 30px;
+      color: #444;
+    }
+
+    select {
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    .checklist {
+      margin-top: 10px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+    }
+
+    .check-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10px;
+      border-left: 4px solid #ccc;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      background: #fefefe;
+    }
+
+    .check-item.completed {
+      border-color: #28a745;
+    }
+
+    .check-item.pending {
+      border-color: #ffc107;
+    }
+
+    .check-item .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon {
+      font-size: 20px;
+    }
+
+    .check-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .check-info small {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .status {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .status.completed {
+      background: #e0f6e8;
+      color: #28a745;
+    }
+
+    .status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .time {
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h2>Quality Check Schedule</h2>
+      <select>
+        <option>Today</option>
+        <option>Yesterday</option>
+        <option>Last Week</option>
+      </select>
+    </div>
+
+    <h4>Today's Schedule</h4>
+
+    <div class="checklist">
+      <div class="check-item completed">
+        <div class="left">
+          <div class="icon">✅</div>
+          <div class="check-info">
+            <strong>Morning Batch Testing</strong>
+            <small>Sample ID: MKT-2025</small>
+            <span class="time">Completed at 08:15 AM by Alex J.</span>
+          </div>
+        </div>
+        <div class="status completed">ALL PARAMETERS NORMAL</div>
+      </div>
+
+      <div class="check-item pending">
+        <div class="left">
+          <div class="icon">⏳</div>
+          <div class="check-info">
+            <strong>Afternoon Batch Testing</strong>
+            <span class="time">Scheduled for 02:30 PM</span>
+          </div>
+        </div>
+        <div class="status pending">PENDING</div>
+      </div>
+
+      <div class="check-item pending">
+        <div class="left">
+          <div class="icon">🕒</div>
+          <div class="check-info">
+            <strong>Evening Batch Cooling Audit</strong>
+            <span class="time">Scheduled for 07:00 PM</span>
+          </div>
+        </div>
+        <div class="status pending">PENDING</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
