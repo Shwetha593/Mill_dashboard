@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connected Accounts</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* Base */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+  display: flex;
+  justify-content: center;
+}
+
+.connected-section {
+  width: 100%;
+  max-width: 1000px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.connected-section h2 {
+  font-size: 22px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #222;
+}
+
+/* Grid Layout */
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Account Cards */
+.account-card {
+  background-color: #fdfdfd;
+  border: 1px solid #e3e3e3;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.account-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.account-icon {
+  font-size: 30px;
+  color: #1976d2;
+}
+
+.account-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.account-card p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #555;
+}
+
+/* Buttons */
+.btn {
+  margin-top: 1.2rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.disconnect {
+  background-color: #fef2f2;
+  color: #d32f2f;
+  border: 1px solid #f8d7da;
+}
+
+.disconnect:hover {
+  background-color: #fceaea;
+}
+
+.connect {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+
+.connect:hover {
+  background-color: #d0ebff;
+}
+</style>
+</head>
+<body>
+  <div class="connected-section">
+    <h2><i class="fas fa-plug"></i> Connected Accounts</h2>
+
+    <div class="account-grid">
+      <!-- Google -->
+      <div class="account-card connected">
+        <div class="card-header">
+          <i class="fab fa-google account-icon"></i>
+          <div>
+            <h3>Google</h3>
+            <p>Connected for authentication</p>
+          </div>
+        </div>
+        <button class="btn disconnect">Disconnect</button>
+      </div>
+
+      <!-- Weather API -->
+      <div class="account-card connected">
+        <div class="card-header">
+          <i class="fas fa-cloud account-icon"></i>
+          <div>
+            <h3>Weather API</h3>
+            <p>Connected for weather data</p>
+          </div>
+        </div>
+        <button class="btn disconnect">Disconnect</button>
+      </div>
+
+      <!-- Equipment Monitoring -->
+      <div class="account-card not-connected">
+        <div class="card-header">
+          <i class="fas fa-screwdriver-wrench account-icon"></i>
+          <div>
+            <h3>Equipment Monitoring</h3>
+            <p>Not connected</p>
+          </div>
+        </div>
+        <button class="btn connect">Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+document.querySelectorAll('.connect').forEach(button => {
+  button.addEventListener('click', () => {
+    alert("Attempting to connect...");
+  });
+});
+
+document.querySelectorAll('.disconnect').forEach(button => {
+  button.addEventListener('click', () => {
+    if (confirm("Are you sure you want to disconnect this account?")) {
+      alert("Disconnected.");
+    }
+  });
+});
+
+
+</script>
+</body>
+</html>
