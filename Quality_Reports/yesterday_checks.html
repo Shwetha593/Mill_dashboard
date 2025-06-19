@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Yesterday's Checks</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 2rem;
+    }
+    .dashboard {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .check {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid #28a745;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: #f4f6f8;
+      border-radius: 5px;
+    }
+    .check:last-child {
+      margin-bottom: 0;
+    }
+    .check-info {
+      flex-grow: 1;
+      margin-left: 1rem;
+    }
+    .check-info p {
+      margin: 0;
+    }
+    .check-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .check-time {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .status {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .check-icon {
+      font-size: 1.2rem;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Yesterday's Checks</h2>
+
+    <div class="check">
+      <div class="check-icon">✔️</div>
+      <div class="check-info">
+        <p class="check-title">Morning Batch Testing</p>
+        <p class="check-time">Completed at 08:20 AM by Rina K.</p>
+      </div>
+      <div class="status">ALL PARAMETERS NORMAL</div>
+    </div>
+
+    <div class="check">
+      <div class="check-icon">✔️</div>
+      <div class="check-info">
+        <p class="check-title">Afternoon Batch Testing</p>
+        <p class="check-time">Completed at 02:45 PM by Mohit S.</p>
+      </div>
+      <div class="status">ALL PARAMETERS NORMAL</div>
+    </div>
+
+    <div class="check">
+      <div class="check-icon">✔️</div>
+      <div class="check-info">
+        <p class="check-title">Evening Batch Cooling Audit</p>
+        <p class="check-time">Completed at 07:15 PM by Alex J.</p>
+      </div>
+      <div class="status">ALL PARAMETERS NORMAL</div>
+    </div>
+  </div>
+</body>
+</html>

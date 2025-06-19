@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS to apply Inter font globally and ensure responsive canvas behavior if applicable */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Ensure the main container grows and shrinks appropriately */
+        .container {
+            width: 100%;
+            max-width: 90%; /* Adjust as needed for larger screens */
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        @media (min-width: 640px) { /* Small screens */
+            .container {
+                max-width: 500px; /* Max width for sm screens */
+            }
+        }
+        @media (min-width: 768px) { /* Medium screens */
+            .container {
+                max-width: 600px; /* Max width for md screens */
+            }
+        }
+        @media (min-width: 1024px) { /* Large screens */
+            .container {
+                max-width: 768px; /* Max width for lg screens */
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+
+    <div class="container bg-white p-6 md:p-8 rounded-xl shadow-lg">
+        <!-- Privacy Policy Header -->
+        <div class="flex items-center mb-4">
+            <i class="fas fa-file-alt text-blue-600 text-2xl mr-3"></i>
+            <h1 class="text-2xl font-semibold text-gray-800">Privacy Policy</h1>
+        </div>
+
+        <!-- Policy Text Content -->
+        <p class="text-gray-600 mb-6 leading-relaxed text-sm md:text-base">
+            We are committed to protecting your privacy. Our privacy policy explains how we collect, use, and protect your information.
+            By using our services, you agree to our collection and use of information as described in this policy.
+            This policy also details your rights regarding your data and how you can exercise them.
+            We encourage you to read this policy carefully to understand our practices.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button id="viewPolicyBtn" class="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition duration-300 ease-in-out
+                       bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                       shadow-md hover:shadow-lg">
+                <i class="fas fa-eye mr-2"></i>
+                View Full Policy
+            </button>
+            <button id="downloadPdfBtn" class="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition duration-300 ease-in-out
+                       bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
+                       shadow-md hover:shadow-lg">
+                <i class="fas fa-download mr-2"></i>
+                Download PDF
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for button actions
+        window.onload = function() {
+            const viewPolicyBtn = document.getElementById('viewPolicyBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+            // Event listener for the "View Full Policy" button
+            if (viewPolicyBtn) {
+                viewPolicyBtn.addEventListener('click', () => {
+                    // In a real application, this would navigate to the full policy page
+                    console.log('Viewing full privacy policy...');
+                    // You could also open a modal here with the policy text
+                    // For now, let's simulate with a simple alert (using a custom modal in a real app)
+                    // alert("Simulating: Full policy would open here!"); // Avoid alert() in Canvas
+                    showCustomMessage("Simulating: Full policy would open here!");
+                });
+            }
+
+            // Event listener for the "Download PDF" button
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', () => {
+                    // In a real application, this would trigger a PDF download
+                    console.log('Downloading privacy policy PDF...');
+                    // Simulate a download by providing a link or message
+                    // alert("Simulating: PDF download initiated!"); // Avoid alert() in Canvas
+                    showCustomMessage("Simulating: PDF download initiated!");
+                });
+            }
+
+            // --- Custom Message Box (instead of alert/confirm) ---
+            function showCustomMessage(message) {
+                let messageBox = document.getElementById('customMessageBox');
+                if (!messageBox) {
+                    messageBox = document.createElement('div');
+                    messageBox.id = 'customMessageBox';
+                    messageBox.className = 'fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50';
+                    messageBox.innerHTML = `
+                        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+                            <p class="text-gray-800 text-lg mb-4">${message}</p>
+                            <button id="closeMessageBox" class="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+
+                    document.getElementById('closeMessageBox').addEventListener('click', () => {
+                        messageBox.remove();
+                    });
+                }
+                // If already exists, just update message and ensure visible
+                else {
+                    messageBox.querySelector('p').textContent = message;
+                    messageBox.style.display = 'flex';
+                }
+            }
+        };
+    </script>
+</body>
+</html>

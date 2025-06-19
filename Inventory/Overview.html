@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab, .refresh-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .tab {
+      background: #e0e0e0;
+    }
+
+    .refresh-btn {
+      background: #3f51b5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      width: calc(25% - 15px); /* Four cards per row */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-left: 6px solid transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card.high { border-left-color: #2e7d32; }
+    .card.medium { border-left-color: #ef6c00; }
+    .card.low { border-left-color: #d32f2f; }
+
+    .card-icon {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .card-value {
+      font-size: 22px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .high-stock { background: #e0f2f1; color: #00796b; }
+    .medium-stock { background: #fff3e0; color: #ef6c00; }
+    .low-stock { background: #ffebee; color: #c62828; }
+
+    .trend-up { color: green; font-weight: bold; }
+    .trend-down { color: red; font-weight: bold; }
+    .trend-reorder { color: #d32f2f; font-weight: bold; }
+
+    @media (max-width: 1024px) {
+      .card {
+        width: calc(50% - 10px); /* 2 cards per row on tablets */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 100%; /* Stack on phones */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Inventory Management</h2>
+    <div class="controls">
+      <div class="tab">📊 Overview</div>
+      
+    </div>
+
+    <div class="cards">
+      <div class="card high">
+        <div class="card-icon">🥛</div>
+        <div class="card-title">Raw Milk Stock</div>
+        <div class="card-value">2,450L</div>
+        <div class="card-footer">
+          <div class="status high-stock">High Stock</div>
+          <div class="trend-up">↑ 12%</div>
+        </div>
+      </div>
+
+      <div class="card medium">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Finished Products</div>
+        <div class="card-value">1,850 Units</div>
+        <div class="card-footer">
+          <div class="status medium-stock">Medium</div>
+          <div class="trend-down">↓ 5%</div>
+        </div>
+      </div>
+
+      <div class="card low">
+        <div class="card-icon">🌾</div>
+        <div class="card-title">Cattle Feed</div>
+        <div class="card-value">1,250 kg</div>
+        <div class="card-footer">
+          <div class="status low-stock">Low</div>
+          <div class="trend-reorder">⚠ Reorder</div>
+        </div>
+      </div>
+
+      <div class="card medium">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Packaging Materials</div>
+        <div class="card-value">5,200 Units</div>
+        <div class="card-footer">
+          <div class="status medium-stock">Medium</div>
+          <div class="trend-up">↑ 8%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

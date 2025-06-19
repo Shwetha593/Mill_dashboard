@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Settings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: #fff;
+      width: 100%;
+      max-width: 960px;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h2 {
+      font-size: 26px;
+      color: #333;
+    }
+
+    .edit-btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .form-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      background: #fff;
+      font-size: 12px;
+      padding: 0 6px;
+      color: #666;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      background-color: #f8f9fa;
+      transition: 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #007bff;
+      background: #fff;
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+      border: 3px solid #007bff55;
+    }
+
+    .profile button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .update-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .remove-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .save-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .discard-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .buttons button {
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    small {
+      display: block;
+      color: #666;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .form-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>👤 Account Settings</h2>
+    <button class="edit-btn" onclick="enableEdit()">✏️ Edit</button>
+  </div>
+
+  <div class="form-section">
+    <div>
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" value="Farm Owner" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" value="owner@farm.com" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone *</label>
+        <input type="tel" id="phone" value="9876543210" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Farm Address *</label>
+        <textarea id="address" rows="2" disabled>123 Farm Lane, Rural District</textarea>
+        <small>Primary location of your operations</small>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="size">Farm Size (acres)</label>
+          <input type="number" id="size" value="50" disabled>
+        </div>
+        <div class="form-group">
+          <label for="crop">Primary Crop</label>
+          <select id="crop" disabled>
+            <option selected>Corn</option>
+            <option>Wheat</option>
+            <option>Rice</option>
+            <option>Soybeans</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="year">Established Year</label>
+        <input type="number" id="year" value="2010" disabled>
+      </div>
+    </div>
+
+    <div class="profile">
+      <img src="profile.png" id="profileImage" alt="Profile Image">
+      <button class="update-btn" onclick="document.getElementById('fileInput').click()">Update</button>
+      <button class="remove-btn" onclick="removePicture()">Remove</button>
+      <input type="file" id="fileInput" accept="image/*" onchange="updatePicture(event)">
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="save-btn" onclick="saveChanges()">Save Changes</button>
+    <button class="discard-btn" onclick="discardChanges()">Discard</button>
+  </div>
+</div>
+
+<script>
+  const fields = ['name', 'email', 'phone', 'address', 'size', 'crop', 'year'];
+  const originalValues = {};
+
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    originalValues[id] = el.tagName === 'SELECT' ? el.selectedIndex : el.value;
+  });
+
+  function enableEdit() {
+    fields.forEach(id => document.getElementById(id).disabled = false);
+  }
+
+  function saveChanges() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const size = document.getElementById('size').value.trim();
+
+    const nameRegex = /^[A-Za-z ]{3,}$/;
+    const phoneRegex = /^[789]\d{9}$/;
+    const sizeRegex = /^[0-9]+$/;
+
+    if (!nameRegex.test(name)) {
+      alert("Name must be at least 3 letters and only alphabets.");
+      return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+      alert("Phone number must be 10 digits and start with 7, 8, or 9.");
+      return;
+    }
+
+    if (!sizeRegex.test(size)) {
+      alert("Farm size must be a valid number.");
+      return;
+    }
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      originalValues[id] = el.tagName === 'SELECT' ? el.selectedIndex : el.value;
+      el.disabled = true;
+    });
+
+    alert("Changes saved successfully.");
+  }
+
+  function discardChanges() {
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el.tagName === 'SELECT') {
+        el.selectedIndex = originalValues[id];
+      } else {
+        el.value = originalValues[id];
+      }
+      el.disabled = true;
+    });
+
+    alert("Changes discarded.");
+  }
+
+  function updatePicture(event) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.getElementById('profileImage').src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  function removePicture() {
+    document.getElementById('profileImage').src = '';
+  }
+
+
+
+
+  function updatePicture(event) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imageData = reader.result;
+
+      // Set in account settings image
+      document.getElementById('profileImage').src = imageData;
+
+      // Save to localStorage for syncing with dashboard
+      localStorage.setItem('profileImage', imageData);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  function removePicture() {
+    document.getElementById('profileImage').src = '';
+    localStorage.removeItem('profileImage');
+  }
+
+  // Load saved image if exists
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+      document.getElementById('profileImage').src = savedImage;
+    }
+  });
+
+</script>
+
+</body>
+</html>
