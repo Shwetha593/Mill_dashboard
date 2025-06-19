@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milk Collection Dashboard</title>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+       font-family: Arial, sans-serif;
+      background: #f5f8fb;
+     
+      margin: 0;
+      padding: 30px;
+    }
+
+    .dashboard {
+      max-width: 1300px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .card {
+      background: #fafafa;
+      border-left: 6px solid #4f46e5;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 28px;
+      height: 28px;
+      color: #4f46e5;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .card-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .card-note {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: green;
+    }
+
+    .card-note.negative {
+      color: red;
+    }
+
+    @media (max-width: 1024px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h2>Milk Collection Dashboard</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <i data-lucide="milk" class="card-icon"></i>
+          <span class="card-title">TODAY'S COLLECTION</span>
+        </div>
+        <div class="card-value" id="todayCollection">--</div>
+        <div class="card-note" id="todayChange">--</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i data-lucide="calendar-days" class="card-icon"></i>
+          <span class="card-title">THIS WEEK'S AVG.</span>
+        </div>
+        <div class="card-value" id="weeklyAvg">--</div>
+        <div class="card-note" id="weekChange">--</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i data-lucide="user" class="card-icon"></i>
+          <span class="card-title">TOP FARMER TODAY</span>
+        </div>
+        <div class="card-value" id="topFarmer">--</div>
+        <div class="card-note" id="topVolume">--</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i data-lucide="droplet" class="card-icon"></i>
+          <span class="card-title">AVG. FAT CONTENT</span>
+        </div>
+        <div class="card-value" id="fatContent">--</div>
+        <div class="card-note green">Within ideal range</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      todayCollection: 2142,
+      todayChange: 8,
+      weeklyAvg: 1965,
+      weekChange: 5,
+      topFarmer: "Mahesh",
+      topVolume: 148,
+      fatContent: 4.8
+    };
+
+    document.getElementById("todayCollection").textContent = `${data.todayCollection} L`;
+    document.getElementById("todayChange").textContent = `↑ ${data.todayChange}% from yesterday`;
+
+    document.getElementById("weeklyAvg").textContent = `${data.weeklyAvg} L/day`;
+    document.getElementById("weekChange").textContent = `↑ ${data.weekChange}% from last week`;
+
+    document.getElementById("topFarmer").textContent = data.topFarmer;
+    document.getElementById("topVolume").textContent = `${data.topVolume} L supplied`;
+
+    document.getElementById("fatContent").textContent = `${data.fatContent}%`;
+
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>
