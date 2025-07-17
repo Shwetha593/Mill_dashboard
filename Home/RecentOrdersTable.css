@@ -1,0 +1,136 @@
+/* Card container */
+.recent-orders-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.error-text {
+  color: #d93025;
+  font-size: 13px;
+  margin: -8px 0 8px;
+}
+
+.form-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #0c5460;
+}
+
+.recent-orders-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.card-title-recent-orders {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2e3a59;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #4a90e2;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+}
+
+.icon-dot::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* Table container */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+thead {
+  background-color: #f1f5f9;
+}
+
+th {
+  text-align: left;
+  padding: 14px;
+  font-size: 13px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+tbody tr {
+  transition: background-color 0.2s ease-in-out;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:hover {
+  background-color: #f9fbff;
+}
+
+td {
+  padding: 16px 14px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Status styles */
+.status {
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.status-completed {
+  background-color: #e6f4ea;
+  color: #2e7d32;
+}
+
+.status-pending {
+  background-color: #fff4e5;
+  color: #ef6c00;
+}
+
+.status-in-progress {
+  background-color: #e3f2fd;
+  color: #1e88e5;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  th, td {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .card-title-recent-orders {
+    font-size: 18px;
+  }
+}

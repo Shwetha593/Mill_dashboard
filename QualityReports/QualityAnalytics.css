@@ -1,0 +1,96 @@
+.dashboard33 {
+  padding: 40px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.header33 {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.header33 h2 {
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+}
+.chart-card33 {
+  flex: 1;
+  min-height: 450px; /* This is crucial for bar chart */
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.chart-card33 canvas {
+  width: 90% !important;
+  height: 90% !important;
+}
+
+.cards33 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card33 {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.card33:hover {
+  transform: translateY(-5px);
+}
+
+.card33 .icon33 {
+  font-size: 32px;
+  margin-right: 15px;
+}
+
+.card33 h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.card33 p {
+  margin: 5px 0 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Themed colors */
+.green { background-color: #e8f5e9; }
+.green .icon33 { color: #4caf50; }
+
+.blue { background-color: #e3f2fd; }
+.blue .icon33 { color: #2196f3; }
+
+.orange { background-color: #fff3e0; }
+.orange .icon33 { color: #fb8c00; }
+
+.red { background-color: #ffebee; }
+.red .icon33 { color: #f44336; }
+
+.charts33 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 30px;
+}
+
+.chart-card33 {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}

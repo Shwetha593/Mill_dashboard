@@ -1,0 +1,109 @@
+/* src/components/MetricCard.css */
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 12px; /* More rounded corners */
+  padding: 25px; /* More padding inside */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Stronger, softer shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px; /* Slightly taller cards */
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out; /* Smooth hover */
+  cursor: pointer;
+  border: 1px solid #f0f2f5; /* Very subtle border */
+  height: 100%;
+  /* ADD THIS FOR THE SIDE COLOR ACCENT */
+  border-left: 8px solid transparent; /* Default transparent border, will be overridden */
+  transition: border-left-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.metric-card:hover {
+  transform: translateY(-8px); /* More pronounced lift */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px; /* More space */
+}
+
+.card-icon {
+  font-size: 32px; /* Even larger icons */
+  color: #ffffff; /* White icon color */
+  padding: 12px; /* More padding inside the circle */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px; /* More space */
+  min-width: 56px; /* Larger fixed circle size */
+  min-height: 56px;
+}
+
+/* Apply individual background colors to icons AND border-left color to cards */
+.metric-card:nth-child(1) .card-icon { background-color: #66bb6a; } /* Brighter Green */
+.metric-card:nth-child(1) { border-left-color: #66bb6a; } /* Match card side border */
+
+.metric-card:nth-child(2) .card-icon { background-color: #ffca28; } /* Brighter Amber */
+.metric-card:nth-child(2) { border-left-color: #ffca28; } /* Match card side border */
+
+.metric-card:nth-child(3) .card-icon { background-color: #42a5f5; } /* Brighter Blue */
+.metric-card:nth-child(3) { border-left-color: #42a5f5; } /* Match card side border */
+
+.metric-card:nth-child(4) .card-icon { background-color: #ab47bc; } /* Brighter Purple */
+.metric-card:nth-child(4) { border-left-color: #ab47bc; } /* Match card side border */
+
+.metric-card:nth-child(5) .card-icon { background-color: #26a69a; } /* Brighter Teal */
+.metric-card:nth-child(5) { border-left-color: #26a69a; } /* Match card side border */
+
+.metric-card:nth-child(6) .card-icon { background-color: #ff7043; } /* Brighter Deep Orange */
+.metric-card:nth-child(6) { border-left-color: #ff7043; } /* Match card side border */
+
+.metric-card:nth-child(7) .card-icon { background-color: #8bc34a; } /* Brighter Light Green */
+.metric-card:nth-child(7) { border-left-color: #8bc34a; } /* Match card side border */
+
+.metric-card:nth-child(8) .card-icon { background-color: #ef5350; } /* Brighter Red */
+.metric-card:nth-child(8) { border-left-color: #ef5350; } /* Match card side border */
+
+
+.card-title {
+  font-size: 15px; /* Slightly larger */
+  color: #78909c; /* Muted grey for titles */
+  font-weight: 500; /* Regular weight */
+  text-transform: uppercase;
+  letter-spacing: 0.8px; /* More letter spacing */
+}
+
+.card-value {
+  font-size: 31px; /* Even larger, more prominent value */
+  font-weight: 700; /* Bold */
+  color: #263238; /* Very dark, almost black for value */
+  margin-bottom: 10px;
+}
+
+.card-change {
+  display: flex;
+  align-items: center;
+  font-size: 14px; /* Slightly larger change text */
+  font-weight: 500;
+  gap: 4px; /* Space between icon and text */
+}
+
+.card-change.increase {
+  color: #4CAF50; /* Keep green for increases */
+}
+
+.card-change.decrease {
+  color: #F44336; /* Keep red for decreases */
+}
+
+.card-change.info {
+  color: #92a4b8; /* Muted info color */
+}
+
+.arrow-icon {
+  font-size: 13px; /* Slightly larger arrow */
+  vertical-align: middle;
+}

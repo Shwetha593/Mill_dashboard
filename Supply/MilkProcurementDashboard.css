@@ -1,0 +1,101 @@
+/* MilkProcurementDashboard.css */
+
+.procurement-dashboard {
+  padding: 30px 40px;
+  background-color: #f5f8fb;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  max-width: 1050px;
+}
+
+.procurement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.procurement-header h2 {
+  font-size: 24px;
+  color: #1c1c1c;
+  margin: 0;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-buttons button {
+  padding: 8px 16px;
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.filter-buttons button:hover {
+  background-color: #162f6b;
+}
+
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+.download-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.download-button button {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.download-button button:hover {
+  background-color: #0f172a;
+}
+
+
+.dashboard-section {
+  display: block;   /* Not none */
+  visibility: visible;
+  height: auto;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+@media (max-width: 768px) {
+  .procurement-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .filter-buttons {
+    flex-wrap: wrap;
+  }
+
+  .chart-container {
+    padding: 20px;
+  }
+
+  .chart-container canvas {
+    height: 300px !important;
+  }
+}

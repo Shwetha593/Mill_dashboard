@@ -1,0 +1,75 @@
+.monthly-sales-card {
+  max-width: 1050px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 30px 35px;
+  font-family: 'Segoe UI', sans-serif;
+  transition: box-shadow 0.3s ease;
+}
+
+.monthly-sales-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.monthly-sales-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.monthly-sales-header h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.monthly-sales-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.monthly-sales-controls select {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.monthly-sales-controls select:focus {
+  border-color: #2563eb;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.monthly-sales-controls button {
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.monthly-sales-controls button:hover {
+  background: #1e40af;
+}
+
+canvas#monthlySalesChart {
+  margin-top: 20px;
+  width: 100% !important;
+  height: 350px !important;
+  border-radius: 12px;
+}

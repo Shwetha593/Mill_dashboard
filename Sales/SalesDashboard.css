@@ -1,0 +1,127 @@
+.dashboard2 {
+  padding: 30px 50px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  min-height: 75vh;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.top-bar h2 {
+  font-size: 28px;
+  color: #2c3e50;
+}
+
+.calendar-box input[type="date"] {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.filter-tabs button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.filter-tabs .active {
+  background-color: #1e88e5;
+  color: #fff;
+  font-weight: 600;
+}
+
+.cardss {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+  min-width: 230px;
+}
+
+.card2 {
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  min-height: 140px;
+}
+
+.card2:hover {
+  transform: translateY(-5px);
+}
+
+.card2-icon {
+  font-size: 40px;
+  color: white;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 18px;
+  flex-shrink: 0;
+}
+
+.card2-content {
+  flex: 1;
+}
+
+.card2-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.card2-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.card2-change {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card2-change.up {
+  color: #28a745;
+}
+
+.card2-change.down {
+  color: #dc3545;
+}
+
+.card2-change::before {
+  content: '';
+  margin-right: 6px;
+}
