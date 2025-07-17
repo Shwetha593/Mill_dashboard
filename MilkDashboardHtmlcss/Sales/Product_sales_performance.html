@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Sales Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f8fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 250px;
+    }
+
+    .header button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 14px 12px;
+    }
+
+    th {
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    td {
+      border-top: 1px solid #eee;
+    }
+
+    .status {
+      padding: 4px 10px;
+      font-weight: 600;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      display: inline-block;
+    }
+
+    .status-running { background-color: #d1ecf1; color: #0c5460; }
+    .status-new { background-color: #fff3cd; color: #856404; }
+    .status-ended { background-color: #f8d7da; color: #721c24; }
+    .status-ongoing { background-color: #ffeeba; color: #856404; }
+
+    .services {
+      margin-top: 40px;
+    }
+
+    .services p {
+      margin: 10px 0;
+    }
+
+    .services span {
+      font-weight: bold;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      max-width: 90%;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      animation: slideDown 0.3s ease-out;
+      position: relative;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-content input,
+    .modal-content select {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .modal-content button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #333;
+      font-size: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Product Sales Performance</h2>
+    <div>
+      <input type="text" placeholder="Search products...">
+      <button onclick="openModal()">+ Add Product</button>
+    </div>
+  </div>
+
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>PRODUCT</th>
+        <th>PLATFORM</th>
+        <th>REACH</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fresh Milk, Daily Health</td>
+        <td>Facebook</td>
+        <td>22,000</td>
+        <td><span class="status status-running">Running</span></td>
+      </tr>
+      <tr>
+        <td>Taste the Tradition</td>
+        <td>Instagram</td>
+        <td>15,500</td>
+        <td><span class="status status-new">New</span></td>
+      </tr>
+      <tr>
+        <td>Village to City Drive</td>
+        <td>Local Radio</td>
+        <td>9,800</td>
+        <td><span class="status status-ended">Ended</span></td>
+      </tr>
+      <tr>
+        <td>Supply milk & Improve Health</td>
+        <td>WhatsApp</td>
+        <td>10,000</td>
+        <td><span class="status status-ongoing">On Going</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="services">
+    <h2>Services Engagement</h2>
+    <p><span>WhatsApp Campaign:</span> New product alert sent to 3,000 customers. <small>(Apr 13)</small></p>
+    <p><span>Referral Program:</span> 450 new customers through referral codes. <small>(Apr 10)</small></p>
+    <p><span>Email Newsletter:</span> Open rate at 43%. <small>(Apr 9)</small></p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h3>Add Product</h3>
+    <input type="text" id="productName" placeholder="Product Name (min 3 alphabets)">
+    <select id="platform">
+      <option disabled selected hidden>Select Platform</option>
+      <option>Facebook</option>
+      <option>Instagram</option>
+      <option>WhatsApp</option>
+      <option>Local Radio</option>
+    </select>
+    <input type="number" id="reach" placeholder="Reach (numbers only)">
+    <select id="status">
+      <option disabled selected hidden>Select Status</option>
+      <option>Running</option>
+      <option>New</option>
+      <option>Ended</option>
+      <option>On Going</option>
+    </select>
+    <button onclick="addProduct()">Add</button>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById("productModal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("productModal").style.display = "none";
+  }
+
+  function addProduct() {
+    const name = document.getElementById("productName").value.trim();
+    const platform = document.getElementById("platform").value;
+    const reach = document.getElementById("reach").value.trim();
+    const status = document.getElementById("status").value;
+
+    if (!/^[a-zA-Z\s]{3,}$/.test(name)) {
+      alert("Product name must contain at least 3 alphabetic characters.");
+      return;
+    }
+
+    if (!/^\d+$/.test(reach)) {
+      alert("Reach must be a valid number.");
+      return;
+    }
+
+    if (!platform || platform === "Select Platform" || !status || status === "Select Status") {
+      alert("Please select a valid platform and status.");
+      return;
+    }
+
+    const statusClass = {
+      "Running": "status-running",
+      "New": "status-new",
+      "Ended": "status-ended",
+      "On Going": "status-ongoing"
+    };
+
+    const table = document.getElementById("productTable").getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+      <td>${name}</td>
+      <td>${platform}</td>
+      <td>${parseInt(reach).toLocaleString()}</td>
+      <td><span class="status ${statusClass[status]}">${status}</span></td>
+    `;
+
+    closeModal();
+    document.getElementById("productName").value = "";
+    document.getElementById("reach").value = "";
+    document.getElementById("platform").selectedIndex = 0;
+    document.getElementById("status").selectedIndex = 0;
+  }
+
+  document.querySelector('.header input').addEventListener('input', function () {
+    const searchValue = this.value.toLowerCase().replace(/\s+/g, '');
+    const rows = document.querySelectorAll('#productTable tbody tr');
+
+    rows.forEach(row => {
+      const productName = row.cells[0].textContent.toLowerCase().replace(/\s+/g, '');
+      row.style.display = productName.includes(searchValue) ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>

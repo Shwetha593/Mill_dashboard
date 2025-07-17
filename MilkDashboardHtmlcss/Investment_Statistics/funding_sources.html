@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Funding Sources</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fb;
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .add-source-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .add-source-bar button {
+      width: 100%;
+      max-width: 1300px;
+      padding: 12px;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tabs button {
+      background-color: #e6f0fa;
+      color: #333;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .tabs button:hover {
+      background-color: #d0e4ff;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      width: 48%;
+      max-width: none;
+      min-height: 360px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card .status {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background-color: #e0f7e9;
+      color: #0a8f50;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .card h4 {
+      font-size: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h4 i {
+      background-color: #c5d8f0;
+      padding: 6px;
+      border-radius: 50%;
+      font-style: normal;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .card-content p strong {
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background-color: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+      margin-bottom: 14px;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #3f51b5;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .card-actions button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .view-btn {
+      background-color: #f0f0f0;
+    }
+
+    .pay-btn {
+      background-color: #3f51b5;
+      color: white;
+    }
+
+    .submit-btn {
+      background-color: #009688;
+      color: white;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .modal h3 {
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .modal label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .modal input,
+    .modal select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .modal-actions button {
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background-color: #f0f0f0;
+    }
+
+    .submit-btn-modal {
+      background-color: #3f51b5;
+      color: white;
+    }
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-top: 20px;
+}
+
+
+  </style>
+</head>
+<body>
+  <h2>🏦 Funding Sources</h2>
+
+  <div class="add-source-bar">
+    <button onclick="openModal()">+ Add New Source</button>
+  </div>
+
+  <div class="tabs">
+    <button>All Sources</button>
+    <button>Bank Loans</button>
+    <button>Government Schemes</button>
+    <button>Private Investors</button>
+  </div>
+
+  <div class="cards">
+    <!-- Card 1 -->
+    <div class="card bank-loans">
+
+      <span class="status">Active</span>
+      <h4><i>🏦</i> State Bank of India - Dairy Development Loan</h4>
+      <div class="card-content">
+        <p>Principal Amount: <strong>₹75,00,000</strong></p>
+        <p>Interest Rate: 7.5% p.a.</p>
+        <p>Tenure: 7 years</p>
+        <p>Disbursement Date: 15 Jan 2023</p>
+        <p>Next Payment: <strong>₹1,25,000</strong> (15 May 2025)</p>
+        <p>Repayment Progress:</p>
+        <div class="progress-bar">
+          <div class="progress" style="width: 35%"></div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="view-btn">View Details</button>
+        <button class="pay-btn">Make Payment</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card bank-loans">
+
+      <span class="status">Active</span>
+      <h4><i>🏦</i> HDFC Bank - Equipment Financing</h4>
+      <div class="card-content">
+        <p>Principal Amount: <strong>₹35,00,000</strong></p>
+        <p>Interest Rate: 8.2% p.a.</p>
+        <p>Tenure: 5 years</p>
+        <p>Disbursement Date: 10 Mar 2024</p>
+        <p>Next Payment: <strong>₹78,500</strong> (10 May 2025)</p>
+        <p>Repayment Progress:</p>
+        <div class="progress-bar">
+          <div class="progress" style="width: 12%"></div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="view-btn">View Details</button>
+        <button class="pay-btn">Make Payment</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card Government-Schemes">
+
+      <span class="status">Active</span>
+      <h4><i>🏦</i> NABARD - Dairy Entrepreneurship Development Scheme</h4>
+      <div class="card-content">
+        <p>Subsidy Amount: <strong>₹25,00,000</strong></p>
+        <p>Scheme Type: Capital Subsidy</p>
+        <p>Approval Date: 05 Dec 2023</p>
+        <p>Utilization Deadline: 05 Dec 2025</p>
+        <p>Next Report Due: 30 Jun 2025</p>
+        <p>Fund Utilization:</p>
+        <div class="progress-bar">
+          <div class="progress" style="width: 68%; background-color: #009688;"></div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="view-btn">View Details</button>
+        <button class="submit-btn">Submit Report</button>
+      </div>
+    </div>
+  
+
+
+ 
+   <!-- Card 4 -->
+<div class="card Private-Investors">
+
+  <span class="status">Active</span>
+  <h4><i>🏦</i> Agri Innovation Fund - Series B Investment</h4>
+  <div class="card-content">
+    <p>Proposed Amount: <strong>₹1,20,00,000</strong></p>
+    <p>Equity Stake: 15%</p>
+    <p>Application Date: 05 Dec 2023</p>
+    <p>Utilization Deadline: 22 Mar 2025</p>
+    <p>Decision Expected: 15 May 2025</p>
+    <p>Status: Due Diligence</p>
+    <p>Fund Utilization:</p>
+    <div class="progress-bar">
+      <div class="progress" style="width: 68%; background-color: #009688;"></div>
+    </div>
+  </div>
+  <div class="card-actions">
+    <button class="view-btn">View Application</button>
+    <button class="submit-btn">Submit Report</button>
+  </div>
+</div>
+</div>
+
+  <!-- Modal -->
+  <div id="sourceModal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Funding Source</h3>
+      <label for="source">Funding Source</label>
+      <select id="source">
+        <option>State Bank of India - Development Loan</option>
+        <option>HDFC Bank - Equipment Financing</option>
+        <option>NABARD - Dairy Entrepreneurship Development Scheme</option>
+        <option>Agri Innovation Fund - Series B Investment</option>
+        <option>Karnataka Bank - Dairy Development Loan</option>
+      </select>
+
+      <label for="principal">Principal Amount (₹)</label>
+      <input type="number" id="principal" placeholder="Enter amount" />
+
+      <label for="interest">Interest Rate (% p.a.)</label>
+      <input type="number" step="0.01" id="interest" placeholder="e.g., 7.5" />
+
+      <label for="tenure">Tenure (Years)</label>
+      <input type="number" id="tenure" placeholder="e.g., 5" />
+
+      <label for="disbursement">Disbursement Date</label>
+      <input type="date" id="disbursement" />
+
+      <label for="nextPayment">Next Payment Amount (₹)</label>
+      <input type="number" id="nextPayment" placeholder="Enter amount" />
+
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="submit-btn-modal" onclick="submitSource()">Add Source</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- View Details Modal -->
+  <div id="viewDetailsModal" class="modal">
+    <div class="modal-content">
+      <h3>Funding Source Details</h3>
+      <p><strong>Bank Name:</strong> <span id="detailBankName"></span></p>
+      <p><strong>Principal Amount:</strong> <span id="detailPrincipal"></span></p>
+      <p><strong>Interest Rate:</strong> <span id="detailInterest"></span></p>
+      <p><strong>Tenure:</strong> <span id="detailTenure"></span></p>
+      <p><strong>Disbursement Date:</strong> <span id="detailDisbursement"></span></p>
+      <p><strong>Next Payment:</strong> <span id="detailNextPayment"></span></p>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('viewDetailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Make Payment Modal -->
+  <div id="makePaymentModal" class="modal">
+    <div class="modal-content">
+      <h3>Make Payment</h3>
+      <p><strong>Bank Name:</strong> <span id="paymentBankName"></span></p>
+      <p><strong>Amount:</strong> <span id="paymentAmount"></span></p>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('makePaymentModal')">Cancel</button>
+        <button class="submit-btn-modal" onclick="submitPayment()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit Report Modal -->
+  <div id="submitReportModal" class="modal">
+    <div class="modal-content">
+      <h3>Submit Report</h3>
+      <p>Are you sure you want to submit the report for <strong><span id="reportBankName"></span></strong>?</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('submitReportModal')">Cancel</button>
+        <button class="submit-btn-modal" onclick="submitReport()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  // Open and close modals
+  function openModal(modalId = 'sourceModal') {
+    document.getElementById(modalId).style.display = 'flex';
+  }
+
+  function closeModal(modalId = 'sourceModal') {
+    document.getElementById(modalId).style.display = 'none';
+  }
+
+  // Submit new funding source
+  function submitSource() {
+    const source = document.getElementById('source').value;
+    const principal = document.getElementById('principal').value;
+    const interest = document.getElementById('interest').value;
+    const tenure = document.getElementById('tenure').value;
+    const disbursement = document.getElementById('disbursement').value;
+    const nextPayment = document.getElementById('nextPayment').value;
+
+    const cardsContainer = document.querySelector('.cards');
+
+    const cardHTML = `
+      <div class="card">
+        <span class="status">Active</span>
+        <h4><i>🏦</i> ${source}</h4>
+        <div class="card-content">
+          <p>Principal Amount: <strong>₹${Number(principal).toLocaleString()}</strong></p>
+          <p>Interest Rate: ${interest}% p.a.</p>
+          <p>Tenure: ${tenure} years</p>
+          <p>Disbursement Date: ${disbursement}</p>
+          <p>Next Payment: <strong>₹${Number(nextPayment).toLocaleString()}</strong></p>
+          <p>Repayment Progress:</p>
+          <div class="progress-bar">
+            <div class="progress" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="view-btn">View Details</button>
+          <button class="pay-btn">Make Payment</button>
+        </div>
+      </div>
+    `;
+
+    cardsContainer.insertAdjacentHTML('beforeend', cardHTML);
+    closeModal();
+    document.getElementById('source').selectedIndex = 0;
+    document.getElementById('principal').value = '';
+    document.getElementById('interest').value = '';
+    document.getElementById('tenure').value = '';
+    document.getElementById('disbursement').value = '';
+    document.getElementById('nextPayment').value = '';
+  }
+
+  // Modal close when clicking outside
+  window.addEventListener('click', function (event) {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
+
+
+
+
+  // Handle card button actions
+  document.querySelector('.cards').addEventListener('click', function (event) {
+    const target = event.target;
+    const card = target.closest('.card');
+    if (!card) return;
+
+    const title = card.querySelector('h4').innerText;
+    const details = card.querySelectorAll('.card-content p');
+
+    if (target.classList.contains('view-btn')) {
+      document.getElementById('detailBankName').innerText = title;
+      document.getElementById('detailPrincipal').innerText = details[0].innerText.split(': ')[1];
+      document.getElementById('detailInterest').innerText = details[1].innerText.split(': ')[1];
+      document.getElementById('detailTenure').innerText = details[2].innerText.split(': ')[1];
+      document.getElementById('detailDisbursement').innerText = details[3].innerText.split(': ')[1];
+      document.getElementById('detailNextPayment').innerText = details[4].innerText.split(': ')[1];
+      openModal('viewDetailsModal');
+    }
+
+    if (target.classList.contains('pay-btn')) {
+      document.getElementById('paymentBankName').innerText = title;
+      document.getElementById('paymentAmount').innerText = details[4].innerText.split(': ')[1];
+      openModal('makePaymentModal');
+    }
+
+    if (target.classList.contains('submit-btn')) {
+      document.getElementById('reportBankName').innerText = title;
+      openModal('submitReportModal');
+    }
+  });
+
+  function submitPayment() {
+    alert('Your payment has been submitted.');
+    closeModal('makePaymentModal');
+  }
+
+  function submitReport() {
+    alert('Your report has been submitted.');
+    closeModal('submitReportModal');
+  }
+
+
+
+
+  const tabButtons = document.querySelectorAll('.tabs button');
+  const allCards = document.querySelectorAll('.card');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.innerText.trim();
+
+      allCards.forEach(card => {
+        card.style.display = 'block'; // reset all
+
+        if (category === 'Bank Loans' && !card.classList.contains('bank-loans')) {
+          card.style.display = 'none';
+        }
+        if (category === 'Government Schemes' && !card.classList.contains('Government-Schemes')) {
+          card.style.display = 'none';
+        }
+        if (category === 'Private Investors' && !card.classList.contains('Private-Investors')) {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+
+</script>
+</body>
+</html>

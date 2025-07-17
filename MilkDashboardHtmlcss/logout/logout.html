@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logout-box {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .logout-box h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .logout-box button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .confirm {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .confirm:hover {
+      background-color: #c0392b;
+    }
+
+    .cancel {
+      background-color: #ecf0f1;
+      color: #333;
+    }
+
+    .cancel:hover {
+      background-color: #d0d7de;
+    }
+  </style>
+</head>
+<body>
+  <div class="logout-box">
+    <h2>Are you sure you want to log out?</h2>
+    <button class="confirm" onclick="handleLogout()">Yes, Log Out</button>
+    <button class="cancel" onclick="cancelLogout()">Cancel</button>
+  </div>
+
+  <script>
+    function handleLogout() {
+      sessionStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('loggedInUser');
+      window.top.location.href = '../login.html'; // ✔ Ensure this file exists
+    }
+
+    function cancelLogout() {
+      window.top.location.href = '../index.html';
+    }
+  </script>
+</body>
+</html>

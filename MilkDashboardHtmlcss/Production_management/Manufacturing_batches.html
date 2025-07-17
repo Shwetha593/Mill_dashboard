@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manufacturing Batches</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header svg {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+      fill: #007bff;
+    }
+    .button {
+      background-color: #007bff;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup {
+      background-color: #ffffff;
+      padding: 15px;
+      width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    .popup h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #007bff;
+    }
+    .popup label {
+      font-weight: 600;
+      display: block;
+      margin-top: 10px;
+    }
+    .popup input,
+    .popup select {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .popup-actions {
+      text-align: right;
+    }
+    .popup-actions button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .popup-actions button:first-child {
+      background-color: #28a745;
+      color: white;
+    }
+    .popup-actions button:last-child {
+      background-color: #dc3545;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #dee2e6;
+      text-align: left;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    .status-approved {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .status-pending {
+      background-color: #fff3cd;
+      color: #856404;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .status-rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+    .actions img {
+      width: 18px;
+      transition: transform 0.2s;
+    }
+    .actions img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 8H5c-1.66 0-3 1.34-3 3v6c0 1.66 1.34 3 3 3h14c1.66 0 3-1.34 3-3v-6c0-1.66-1.34-3-3-3zm-9 8v-6l-4 3 4 3zm6-3l-4-3v6l4-3z"/></svg>
+    <h2>Manufacturing</h2>
+  </div>
+  <button class="button" onclick="openPopup('add')">+ New Batch</button>
+
+  <div id="popupOverlay" class="popup-overlay" onclick="if(event.target === this) closePopup()">
+    <div class="popup">
+      <h2 id="popupTitle">New Batch</h2>
+      <label>Product:</label>
+      <input type="text" id="product" placeholder="Enter product name" oninput="validateProductName(this)" />
+      <label>Unit:</label>
+      <select id="productUnit">
+        <option value="">Select</option>
+        <option value="1L">1L</option>
+        <option value="500ml">500ml</option>
+        <option value="150g">150g</option>
+      </select>
+      <label>Start Date and Time:</label>
+      <input type="datetime-local" id="startDate" />
+      <label>Quantity:</label>
+      <input type="number" id="quantity" value="1500" />
+      <label>QC Status:</label>
+      <select id="qcStatus">
+        <option value="">Select</option>
+        <option value="Approved">Approved</option>
+        <option value="Pending">Pending</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <label>Packaging:</label>
+      <select id="packaging">
+        <option value="">Select</option>
+        <option value="Tetra Pack">Tetra Pack</option>
+        <option value="Plastic Bottle">Plastic Bottle</option>
+        <option value="Cup">Cup</option>
+      </select>
+      <div class="popup-actions">
+        <button onclick="saveBatch()">Save</button>
+        <button onclick="closePopup()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Batch ID</th>
+        <th>Start Time</th>
+        <th>Quantity</th>
+        <th>QC Status</th>
+        <th>Packaging</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<script>
+  let batches = [
+    { product: "Whole Milk (1L)", batchId: "B-0425-001", startTime: "2025-04-25T08:15", quantity: 1200, qcStatus: "Approved", packaging: "Tetra Pack" },
+    { product: "Skim Milk (500ml)", batchId: "B-0425-002", startTime: "2025-04-25T10:30", quantity: 2400, qcStatus: "Pending", packaging: "Plastic Bottle" },
+    { product: "Yogurt (150g)", batchId: "B-0425-003", startTime: "2025-04-25T13:45", quantity: 3600, qcStatus: "Rejected", packaging: "Cup" }
+  ];
+
+  let editingIndex = -1;
+
+  function validateProductName(input) {
+    const value = input.value;
+    const isValid = /^[A-Za-z\s]{3,}$/.test(value);
+    input.style.borderColor = isValid ? '#ccc' : 'red';
+  }
+
+  function openPopup(mode, index = -1) {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    document.getElementById('popupTitle').textContent = mode === 'edit' ? 'Edit Batch' : mode === 'view' ? 'View Batch' : 'New Batch';
+
+    if (mode === 'edit' || mode === 'view') {
+      editingIndex = index;
+      const b = batches[index];
+      const [product, unit] = b.product.match(/(.+?)\s\((.+)\)/).slice(1);
+      document.getElementById('product').value = product;
+      document.getElementById('productUnit').value = unit;
+      document.getElementById('startDate').value = b.startTime;
+      document.getElementById('quantity').value = b.quantity;
+      document.getElementById('qcStatus').value = b.qcStatus;
+      document.getElementById('packaging').value = b.packaging;
+
+      const inputs = document.querySelectorAll('.popup input, .popup select');
+      inputs.forEach(input => input.disabled = mode === 'view');
+      document.querySelector('.popup-actions button:first-child').style.display = mode === 'view' ? 'none' : 'inline-block';
+    } else {
+      editingIndex = -1;
+      resetForm();
+      const inputs = document.querySelectorAll('.popup input, .popup select');
+      inputs.forEach(input => input.disabled = false);
+      document.querySelector('.popup-actions button:first-child').style.display = 'inline-block';
+    }
+  }
+
+  function closePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
+  }
+
+  function resetForm() {
+    document.getElementById('product').value = '';
+    document.getElementById('productUnit').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('quantity').value = 1500;
+    document.getElementById('qcStatus').value = '';
+    document.getElementById('packaging').value = '';
+  }
+
+  function generateBatchId() {
+    const base = "B-0425-";
+    const next = batches.length + 1;
+    return base + String(next).padStart(3, '0');
+  }
+
+  function saveBatch() {
+    const product = document.getElementById('product').value.trim();
+    const unit = document.getElementById('productUnit').value;
+    const startTime = document.getElementById('startDate').value;
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const qcStatus = document.getElementById('qcStatus').value;
+    const packaging = document.getElementById('packaging').value;
+
+    if (!/^[A-Za-z\s]{3,}$/.test(product) || !unit || !startTime || !quantity || !qcStatus || !packaging) {
+      alert('Please fill all fields correctly. Product must be at least 3 alphabetic characters.');
+      return;
+    }
+
+    const fullProduct = `${product} (${unit})`;
+
+    if (editingIndex > -1) {
+      batches[editingIndex] = { ...batches[editingIndex], product: fullProduct, startTime, quantity, qcStatus, packaging };
+    } else {
+      const batchId = generateBatchId();
+      batches.push({ product: fullProduct, batchId, startTime, quantity, qcStatus, packaging });
+    }
+
+    closePopup();
+    renderTable();
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    batches.forEach((b, i) => {
+      const row = `<tr>
+        <td>${b.product}</td>
+        <td>${b.batchId}</td>
+        <td>${new Date(b.startTime).toLocaleString()}</td>
+        <td>${b.quantity} units</td>
+        <td><span class="status-${b.qcStatus.toLowerCase()}">${b.qcStatus}</span></td>
+        <td>${b.packaging}</td>
+        <td class="actions">
+          <button onclick="openPopup('edit', ${i})"><img src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png" title="Edit"></button>
+          <button onclick="openPopup('view', ${i})"><img src="https://cdn-icons-png.flaticon.com/512/709/709612.png" title="View"></button>
+        </td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  renderTable();
+</script>
+</body>
+</html>

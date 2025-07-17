@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscription Panel</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.subscription-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 900px;
+}
+
+.subscription-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.subscription-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.plan-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-icon {
+  font-size: 22px;
+}
+
+.status-icon.active {
+  color: #2e7d32;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge.active {
+  background-color: #e6f4ea;
+  color: #2e7d32;
+}
+
+.plan-details {
+  margin-top: 1rem;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+  font-size: 14px;
+}
+
+.detail i {
+  color: #1976d2;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upgrade {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.upgrade:hover {
+  background-color: #125ea8;
+}
+
+.cancel {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.cancel:hover {
+  background-color: #e6e6e6;
+}
+</style>
+</head>
+<body>
+  <div class="subscription-section">
+    <h2><i class="fas fa-crown"></i> Subscription</h2>
+
+    <div class="subscription-card">
+      <div class="plan-header">
+        <div class="plan-info">
+          <i class="fas fa-circle-check status-icon active"></i>
+          <div>
+            <h3>Premium Plan</h3>
+            <span class="badge active">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="plan-details">
+        <div class="detail">
+          <i class="fas fa-calendar-day"></i>
+          <span>Renews on: <strong>June 15, 2023</strong></span>
+        </div>
+        <div class="detail">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Price: <strong>$29.99/month</strong></span>
+        </div>
+        <div class="detail">
+          <i class="fas fa-list-check"></i>
+          <span>Features: Advanced analytics, Priority support, Unlimited devices</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn upgrade"><i class="fas fa-arrow-up-right-from-square"></i> Upgrade Plan</button>
+        <button class="btn cancel"><i class="fas fa-ban"></i> Cancel Subscription</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+document.querySelector('.cancel').addEventListener('click', () => {
+  if (confirm("Are you sure you want to cancel your subscription?")) {
+    alert("Subscription cancelled.");
+  }
+});
+
+document.querySelector('.upgrade').addEventListener('click', () => {
+  alert("Redirecting to upgrade page...");
+});
+
+
+
+
+</script>
+</body>
+</html>
