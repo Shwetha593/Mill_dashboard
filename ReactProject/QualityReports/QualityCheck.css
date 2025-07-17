@@ -1,0 +1,104 @@
+.quality-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f5f8fb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.quality-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.quality-header h2 {
+  margin: 0;
+  color: #1e293b;
+}
+
+.quality-header select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+h4 {
+  margin-bottom: 15px;
+  color: #334155;
+  font-size: 18px;
+}
+
+.quality-checklist {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.quality-check-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-left: 5px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #fefefe;
+  transition: 0.3s;
+}
+
+.quality-check-item.completed {
+  border-color: #28a745;
+}
+
+.quality-check-item.pending {
+  border-color: #ffc107;
+}
+
+.quality-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quality-icon {
+  font-size: 22px;
+}
+
+.quality-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.quality-info small {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.quality-time {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.quality-status {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.quality-status.completed {
+  background-color: #e6f9ed;
+  color: #28a745;
+}
+
+.quality-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}

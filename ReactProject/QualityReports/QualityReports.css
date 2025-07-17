@@ -1,0 +1,15 @@
+.QualityReports {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1200px; /* Increased for better spacing */
+  margin: 0 auto;     /* Center on page */
+  padding: 0 20px;    /* Padding for small screens */
+}
+
+.dashboard-section2 {
+  width: 100%;
+  margin-bottom: 0; /* We use gap instead */
+    max-width: 1200px; 
+    
+}

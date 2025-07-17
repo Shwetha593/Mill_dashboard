@@ -1,0 +1,92 @@
+.qc-dashboard-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f8fb;
+  padding: 20px;
+ margin: 0 auto;
+ margin-bottom: 30px;
+}
+
+.qc-title {
+  margin-bottom: 30px;
+  color: #1a1a1a;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.qc-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.qc-card {
+  background: linear-gradient(to bottom right, #ffffff, #f8faff);
+  border-left: 6px solid #007bff;
+  border-radius: 14px;
+  padding: 20px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.qc-card::before {
+  content: "";
+  position: relative;
+  top: 0;
+  margin-top: 0;
+  width: 100px;
+  height: 120px;
+  background: rgba(0, 123, 255, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.qc-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+  z-index: 1;
+  position: relative;
+}
+
+.qc-card h3 {
+  font-size: 16px;
+  color: #555;
+  margin: 0 0 8px;
+  z-index: 1;
+  position: relative;
+}
+
+.qc-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #007bff;
+  z-index: 1;
+  position: relative;
+}
+
+.qc-note {
+  font-size: 13px;
+  margin-top: 6px;
+  z-index: 1;
+  position: relative;
+}
+
+.qc-note.green {
+  color: #28a745;
+}
+
+.qc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 600px) {
+  .qc-dashboard-container {
+    padding: 20px;
+  }
+
+  .qc-card {
+    padding: 24px;
+  }
+}
